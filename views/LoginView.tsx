@@ -4,7 +4,7 @@ import { fieldRules } from "../components/authHelper";
 import MyInputField from "../components/MyInputField";
 import PrimaryButton from "../components/PrimaryButton";
 import { useForm } from "react-hook-form";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { loginAccount, getAccountDetails } from "../redux/authSlice";
 import jwt_decode from "jwt-decode";
 import { useRouter } from "next/router";
@@ -13,6 +13,8 @@ import ErrorModal from "../components/ErrorModal";
 const LoginView = () => {
 	const { control, handleSubmit } = useForm();
 	const dispatch = useAppDispatch();
+	const { authLoading } = useAppSelector((state) => state.authState);
+
 	const router = useRouter();
 	const [showErrorModal, setShowErrorModal] = useState(false);
 	const [errorTitle, setErrorTitle] = useState("");
@@ -54,6 +56,24 @@ const LoginView = () => {
 				}, 3000);
 			});
 	};
+
+	if (authLoading) {
+		return (
+			<div className="w-full h-screen flex justify-center items-center font-mont">
+				<div className="relative flex flex-col mb-5">
+					<span className="absolute flex h-20 w-20">
+						<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-600 opacity-75"></span>
+						<span className="relative flex justify-center items-center rounded-full h-20 w-20 bg-gradient-to-bl from-indigo-600 via-purple-500 to-purple-300 text-2xl lg:text-4xl text-white font-mont font-black tracking-wider">
+							D
+						</span>
+					</span>
+				</div>
+				<h4 className="absolute top-[60%] left-[50%] text-base font-medium">
+					Loading . . .
+				</h4>
+			</div>
+		);
+	}
 
 	return (
 		<div className="relative flexCenteredContainer overflow-hidden bg-login bg-cover bg-center">
