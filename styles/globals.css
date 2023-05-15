@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.flexCenteredContainer {
+  @apply w-full h-screen flex justify-center items-center font-mont text-gray-700;
+}
+
+.card {
+  @apply shadow-md border-b border-gray-300;
+}
