@@ -23,6 +23,7 @@ const AddCaseView = () => {
 	const [qrValue, setQrValue] = useState<any>();
 	const [qrTracker, setQrTracker] = useState<any>();
 	const [showLoading, setShowLoading] = useState(false);
+	const [totalImprisonment, setTotalImprisonment] = useState<number>(0);
 
 	const router = useRouter();
 	const { type } = router.query;
@@ -93,6 +94,7 @@ const AddCaseView = () => {
 			judge_assigned: formData.caseJudge.value,
 			qr_code: qrBase64,
 			qr_code_tracker: qrTracker,
+			imprisonment_span: totalImprisonment,
 		};
 		setTimeout(() => {
 			dispatch(createNewDocket(data)).then(() => {
@@ -279,20 +281,27 @@ const AddCaseView = () => {
 												<div className="flex flex-col gap-y-3">
 													{caseCrimeSentences[crimeTypeValue].penaltyItems.map(
 														(crimeQuestion: any, index: number) => {
-															// console.log("Penalty question: ", crimeQuestion);
+															console.log(`${crimeTypeValue}-${index}`);
 															return (
 																<div
-																	key={`${crimeType}+${index}`}
+																	key={`${crimeTypeValue}-${index}`}
 																	className="flex items-center px-4 border border-gray-300 rounded"
 																>
 																	<input
 																		type="checkbox"
+																		name="bordered-checkbox"
+																		className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 focus:ring-2"
 																		value={
 																			caseCrimeSentences[crimeTypeValue]
 																				.penaltySentences[index]
 																		}
-																		name="bordered-checkbox"
-																		className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 focus:ring-2"
+																		onClick={(e: any) =>
+																			setTotalImprisonment(
+																				(prevImprisonment) =>
+																					prevImprisonment +
+																					Number(e.target.value)
+																			)
+																		}
 																	/>
 																	<label className="w-full py-4 ml-2 text-sm font-normal text-gray-700 dark:text-gray-300">
 																		{crimeQuestion}

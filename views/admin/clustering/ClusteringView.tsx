@@ -78,6 +78,15 @@ const ClusteringView = () => {
 		}
 	};
 
+	const levelLabels: any = {
+		1: "Level 1",
+		2: "Level 2",
+		3: "Level 3",
+		4: "Level 4",
+		5: "Level 5",
+		6: "Life Imprisonment",
+	};
+
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
 			{showCommonModal && (
@@ -182,11 +191,12 @@ const ClusteringView = () => {
 								vertical={false}
 							/>
 							<XAxis
-								dataKey="x"
+								dataKey="name"
 								strokeWidth={0.5}
 								axisLine={true}
 								tickLine={false}
-								hide
+								allowDuplicatedCategory={false}
+								// hide
 							/>
 							<YAxis
 								dataKey="y"
@@ -196,8 +206,12 @@ const ClusteringView = () => {
 								domain={["dataMin", "dataMax"]}
 							/>
 							{/* <Legend
-								payload={clusterYears.map((year: any) => {
-									return { value: year, type: "line", color: "#8b5cf6" };
+								payload={clusterList.map((cluster: any) => {
+									return {
+										value: cluster.name,
+										type: "line",
+										color: "#8b5cf6",
+									};
 								})}
 							/> */}
 							<Tooltip

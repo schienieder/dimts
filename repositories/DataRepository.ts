@@ -190,21 +190,60 @@ export default class DataRepository {
                 'Content-Type' : 'aplication/json'
             }
         })
+        const imprisonmentLevel = (value: number) => {
+            if (value > 30) {
+                return {
+                    level : 6,
+                    name : 'Life Imprisonment'
+                }
+            }
+            else if (value > 20 && value <= 30) {
+                return {
+                    level : 5,
+                    name : 'Level 5'
+                }
+            }
+            else if (value > 12 && value <= 20) {
+                return {
+                    level : 4,
+                    name : 'Level 4'
+                }
+            }
+            else if (value > 6 && value <= 12) {
+                return {
+                    level : 3,
+                    name : 'Level 3'
+                }
+            }
+            else if (value > 1 && value <= 6) {
+                return {
+                    level : 2,
+                    name : 'Level 2'
+                }
+            }
+            else {
+                return {
+                    level : 1,
+                    name : 'Level 1'
+                }
+            }
+        }
         const clusters = data.clusters.map((cluster: any) => {
             return cluster.imprisonment_span
         }).flat()
-        console.log("Fvcking clusters: ", data.clusters)
         // const years = data.clusters.map((cluster: any) => {
         //     return new Date(cluster.last_court_action[0]).getFullYear()
         // })
         // const dbscanCluster = {years : _.uniq(_.map(years)), clusters : clusters}
         const clusterData = clusters.map((cluster: any, index: number) => {
-            if (index === 0) {
-                return { y : cluster, x : 2022 }
-            }
-            return { y : cluster, x : 2023 }
+            // if (index === 0) {
+            //     return { y : cluster, x : 2022 }
+            // }
+            const { level, name } = imprisonmentLevel(cluster)
+            return { y : cluster, x : level, name : name }
         })
-        return { formattedCluster : clusterData, formattedYears : undefined }
+        console.log("Cluster data: ", clusterData)
+        return { formattedCluster : _.orderBy(clusterData, ['y'], ['asc']), formattedYears : undefined }
     }
     // Get Cluster Cases
     async GetClusterCases(jwt_token: string, years: number) {
