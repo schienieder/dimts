@@ -44,6 +44,7 @@ const SendDocument = ({
 			qr_tracker: selectedCase.qr_code_tracker,
 			case_no: selectedCase.case_no,
 			office_name: recipient.name,
+			recipient: recipient.email,
 		};
 		setShowLoading(true);
 		dispatch(sendDocumentEmail(data)).then(() => {

@@ -371,7 +371,8 @@ export default class DataRepository {
         const { data } = await emailConn.post('/send-email/', {
             office_name : formData.office_name,
             case_no : formData.case_no,
-            qr_tracker : formData.qr_tracker
+            qr_tracker : formData.qr_tracker,
+            recipient : formData.recipient
         })
         console.log("Send email response: ", data)
         return data
