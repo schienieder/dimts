@@ -272,17 +272,15 @@
   },
     "Harassment" :  { 
        "penaltyItems" : [
+        "Sexual harassment(3)",
         "Grave Threats,he act threatened to be done is a crime e.g. to kill, to burn or destroy property, to box or to inflict injuries(2)",
-        "Light Threats,threatening another with a weapon, or drawing such weapon in a quarrel(1)",
-        "Sexual harassment(3)"
+        "Light Threats,threatening another with a weapon, or drawing such weapon in a quarrel(1)"
         
        ],
        "penaltySentences" : [
-           6,
-           1,
-           6
-
-          
+            6,
+            6,
+            1
        ]     
   },
     "Homicide" :  { 

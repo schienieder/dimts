@@ -136,6 +136,14 @@ const AddCaseView = () => {
 		caseJudge,
 	]);
 
+	const handleCheckChange = (e: any) => {
+		if (e.target.checked) {
+			setTotalImprisonment((prevTotal) => prevTotal + Number(e.target.value));
+		} else {
+			setTotalImprisonment((prevTotal) => prevTotal - Number(e.target.value));
+		}
+	};
+
 	return (
 		<div className="flex flex-col items-center gap-y-5 font-mont text-gray-700">
 			{/* <div className="w-full flex justify-start">
@@ -281,7 +289,6 @@ const AddCaseView = () => {
 												<div className="flex flex-col gap-y-3">
 													{caseCrimeSentences[crimeTypeValue].penaltyItems.map(
 														(crimeQuestion: any, index: number) => {
-															console.log(`${crimeTypeValue}-${index}`);
 															return (
 																<div
 																	key={`${crimeTypeValue}-${index}`}
@@ -295,13 +302,7 @@ const AddCaseView = () => {
 																			caseCrimeSentences[crimeTypeValue]
 																				.penaltySentences[index]
 																		}
-																		onClick={(e: any) =>
-																			setTotalImprisonment(
-																				(prevImprisonment) =>
-																					prevImprisonment +
-																					Number(e.target.value)
-																			)
-																		}
+																		onClick={(e: any) => handleCheckChange(e)}
 																	/>
 																	<label className="w-full py-4 ml-2 text-sm font-normal text-gray-700 dark:text-gray-300">
 																		{crimeQuestion}
