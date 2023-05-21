@@ -100,6 +100,7 @@ const UpdateHearing = ({
 			activity_description: "New case forwarded to docket case",
 			activity_name: "Case",
 			activity_type: "case",
+			is_viewed: false,
 		};
 		const collectionRef = collection(db, "activity-logs");
 		const activityRef = doc(collectionRef);

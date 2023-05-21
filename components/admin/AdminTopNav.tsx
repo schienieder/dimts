@@ -1,16 +1,21 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import db from "../../firebaseConfig";
-import { onSnapshot, collection } from "firebase/firestore";
+import {
+	onSnapshot,
+	collection,
+	getDocs,
+	doc,
+	updateDoc,
+} from "firebase/firestore";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { changeIsNewData, updateActivityLogs } from "../../redux/dataSlice";
+import _ from "lodash";
 
 const AdminTopNav = () => {
 	const dispatch = useAppDispatch();
-	const { isNewData, activityLogs } = useAppSelector(
-		(state) => state.dataState
-	);
+	const { activityLogs } = useAppSelector((state) => state.dataState);
 	const collectionRef = collection(db, "activity-logs");
 	const router = useRouter();
 	const onLogout = () => {
@@ -18,29 +23,50 @@ const AdminTopNav = () => {
 		router.push("/");
 	};
 
+	const isNotifsViewed = useMemo(() => {
+		const isNotViewed = activityLogs.some((actItem: any) => !actItem.is_viewed);
+		return isNotViewed;
+	}, [activityLogs]);
+
+	const notViewedNotifs = useMemo(() => {
+		const notViewed = activityLogs.filter(
+			(activity: any) => !activity.is_viewed
+		);
+		return notViewed;
+	}, [activityLogs]);
+
 	useEffect(() => {
 		const unsub = onSnapshot(collectionRef, (querySnapshot) => {
 			const items: any = [];
 			querySnapshot.forEach((doc) => {
 				items.push(doc.data());
 			});
-			if (localStorage.previousActivities !== undefined) {
-				if (JSON.stringify(items) !== localStorage.previousActivities) {
-					localStorage.previousActivities = JSON.stringify(items);
-					dispatch(updateActivityLogs(items));
-					dispatch(changeIsNewData(true));
-				} else {
-					dispatch(changeIsNewData(false));
-				}
-			} else {
-				localStorage.previousActivities = JSON.stringify(items);
-				dispatch(changeIsNewData(true));
-			}
+			setTimeout(() => {
+				dispatch(updateActivityLogs(items));
+			}, 3000);
 		});
 		return () => {
 			unsub();
 		};
-	}, [db]);
+	}, [collectionRef, dispatch]);
+
+	const onViewNotifs = async () => {
+		try {
+			if (isNotifsViewed) {
+				const collectionDocs = await getDocs(collectionRef);
+				setTimeout(() => {
+					collectionDocs.forEach((item: any) => {
+						const docRef = doc(collectionRef, item.id);
+						updateDoc(docRef, { is_viewed: true }).then((res) =>
+							console.log("Data updated: ", res)
+						);
+					});
+				}, 3000);
+			}
+		} catch (error: any) {
+			console.log(error.message);
+		}
+	};
 
 	const goToNotifLink = (activityType: string) => {
 		let linkHref: any = "";
@@ -65,10 +91,10 @@ const AdminTopNav = () => {
 						<>
 							<Popover.Button
 								className="p-3 rounded-full bg-purple-100"
-								onClick={() => dispatch(changeIsNewData(false))}
+								onClick={() => onViewNotifs()}
 							>
 								<div className="flex items-center gap-x-1">
-									{isNewData ? (
+									{isNotifsViewed ? (
 										<div className="relative">
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +113,7 @@ const AdminTopNav = () => {
 											<span className="absolute -top-4 left-4 flex h-5 w-5">
 												<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-600 opacity-75"></span>
 												<span className="relative flex justify-center items-center rounded-full h-5 w-5 bg-purple-500 text-[10px] text-white font-bold tracking-wider">
-													{activityLogs.length}
+													{notViewedNotifs.length}
 												</span>
 											</span>
 										</div>
@@ -135,7 +161,13 @@ const AdminTopNav = () => {
 															goToNotifLink(activity.activity_type)
 														}
 													>
-														<div className="bg-purple-100 p-3 rounded-full">
+														<div
+															className={`p-3 rounded-full ${
+																!activity.is_viewed
+																	? "bg-purple-600 text-white"
+																	: "bg-purple-100 text-purple-600"
+															}`}
+														>
 															{activity.activity_type === "hearing" ? (
 																<svg
 																	xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +175,7 @@ const AdminTopNav = () => {
 																	viewBox="0 0 24 24"
 																	strokeWidth={1.5}
 																	stroke="currentColor"
-																	className="w-6 h-6 text-purple-600"
+																	className="w-6 h-6 text-current"
 																>
 																	<path
 																		strokeLinecap="round"
@@ -159,7 +191,7 @@ const AdminTopNav = () => {
 																	viewBox="0 0 24 24"
 																	strokeWidth={1.5}
 																	stroke="currentColor"
-																	className="w-6 h-6 text-purple-600"
+																	className="w-6 h-6 text-current"
 																>
 																	<path
 																		strokeLinecap="round"
@@ -175,7 +207,7 @@ const AdminTopNav = () => {
 																	viewBox="0 0 24 24"
 																	strokeWidth={1.5}
 																	stroke="currentColor"
-																	className="w-6 h-6 text-purple-600"
+																	className="w-6 h-6 text-current"
 																>
 																	<path
 																		strokeLinecap="round"

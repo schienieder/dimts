@@ -297,14 +297,14 @@ const AddCaseView = () => {
 																	<input
 																		type="checkbox"
 																		name="bordered-checkbox"
-																		className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 focus:ring-2"
+																		className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
 																		value={
 																			caseCrimeSentences[crimeTypeValue]
 																				.penaltySentences[index]
 																		}
 																		onClick={(e: any) => handleCheckChange(e)}
 																	/>
-																	<label className="w-full py-4 ml-2 text-sm font-normal text-gray-700 dark:text-gray-300">
+																	<label className="w-full py-4 ml-2 text-sm font-normal text-gray-700">
 																		{crimeQuestion}
 																	</label>
 																</div>

@@ -130,7 +130,6 @@ const AddCivilCase = ({
 				Raffled Court: ${caseRaffled}\n\n
 				Judge Assigned: ${caseJudge.value}
 			`;
-		console.log("QR Data: ", qrData);
 		setQrTracker(tracker);
 		setQrValue(qrData);
 	}, [

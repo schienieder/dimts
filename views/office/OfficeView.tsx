@@ -60,9 +60,10 @@ const OfficeView = () => {
 			updateDocument({ formData: data, document_id: selectedDocument.id })
 		).then(() => {
 			const newActivity = {
-				activity_description: `Mailed document has been acknowledged by the Office of ${userProfile?.first_name}`,
+				activity_description: `Mailed document has been acknowledged by ${userProfile?.first_name}`,
 				activity_name: "Mailed Documents",
 				activity_type: "document",
+				is_viewed: false,
 			};
 			const activityRef = doc(collectionRef);
 			try {

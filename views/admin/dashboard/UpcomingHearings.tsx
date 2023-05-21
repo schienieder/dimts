@@ -10,6 +10,7 @@ const UpcomingHearings = ({ upcomingHearings }: any) => {
 			activity_description: `Hearing for ${case_no} is on going`,
 			activity_name: "Hearing Schedule",
 			activity_type: "hearing",
+			is_viewed: false,
 		};
 		try {
 			setDoc(activityRef, newActivity);

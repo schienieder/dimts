@@ -81,6 +81,7 @@ const CourtHearingsView = () => {
 			activity_description: "New court hearing is created",
 			activity_name: "Hearing Schedule",
 			activity_type: "hearing",
+			is_viewed: false,
 		};
 		const activityRef = doc(collectionRef);
 		dispatch(getCourtHearings()).then((res: any) =>
