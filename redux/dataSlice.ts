@@ -504,7 +504,6 @@ export const deleteCaseCitizen = createAsyncThunk(
     }
 )
 
-
 const dataSlice = createSlice({
     name : 'data',
     initialState,

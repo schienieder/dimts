@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../redux/hooks";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import RegisterModal from "../../components/SuccessfulRegisterModal";
 
 const RegisterView = () => {
-	const { currentStep } = useSelector((state: any) => state.authState);
+	const { currentStep } = useAppSelector((state: any) => state.authState);
 	const [showModal, setShowModal] = useState(false);
 
 	const stepContent = (step: number) => {
@@ -87,6 +87,30 @@ const RegisterView = () => {
 						<h4 className="text-xl text-white font-black tracking-widest drop-shadow">
 							Dimts
 						</h4>
+					</div>
+					<div className="absolute mx-auto left-0 right-0 bottom-5 flex justify-center items-center hover:cursor-pointer">
+						<a
+							href="https://expo.dev/artifacts/eas/auRBUEZkzbtAyrhMjBch9.apk"
+							className="text-white font-bold flex items-center gap-x-1"
+							rel="noreferrer"
+							target="_blank"
+						>
+							Download mobile app APK{" "}
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth={2}
+								stroke="currentColor"
+								className="w-5 h-5"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+								/>
+							</svg>
+						</a>
 					</div>
 				</div>
 				{/*  */}
