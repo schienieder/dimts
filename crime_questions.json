@@ -1,26 +1,29 @@
 {
         "Aggravated Assault": {
            "penaltyItems" : [
-            "Can be charged in the range of Class 2 to Class 5 felony(LI)",
-            "You’re convicted of aggravated assault as a dangerous offense, you can face prison time(4)",
-            "Class 1 assault is a misdemeanor(3)",   
-            "Threatening violence against someone while concealing one's identity (2)"       
+            "Can be charged in the range of Class 2 to Class 5 higher degree felony.(LI)",
+            "You’re convicted of aggravated assault as a dangerous offense, you can face prison time.(4)",  
+            "Threatening violence against someone while concealing one's identity.(3)", 
+            "Misdemeanor Aggravated assault involves less severe circumtances or aggravating factors.(2)",
+            "Lower felony Aggravated assault may involved more significant harm.(1)"   
     
  ],
            "penaltySentences" : [
                35,
                20,
-               10,
-                 5
+                6,
+                2,
+                1
                   
            ] 
        },
        "Arson" : {
            "penaltyItems" : [
-            "By reclusion temporal to reclusion perpetua:(a) If the offender shall set fire to any building, farmhouse, warehouse, hut, shelter, or vessel in port, knowing it to be occupied at the time by one or more persons; (LI)",
+            "By reclusion temporal to reclusion perpetua:(a) If the offender shall set fire to any building, farmhouse, warehouse, hut, shelter, or vessel in  port, knowing it to be occupied at the time by one or more persons;(LI)",
             "If the arson shall have been committed on the intention of collecting under an insurance policy against loss or damage by fire.(L4)",
-            "If the building burned is a public building and the purpose is to destroy evidence kept therein to be used in instituting prosecution for the punishment of violators of the law, irrespective of the amount of the damage; (L3)",
-            "That if the evidence destroyed is to be used against the defendant for the prosecution of any crime punishable under existing laws, the penalty shall be reclusion perpetua; (L2)"
+            "If the building burned is a public building and the purpose is to destroy evidence kept there in to be used in instituting prosecution for the  punishment of violators of the law, irrespective of the amount of the damage;(L4)",
+            "That if the evidence destroyed is to be used against the defendant for the prosecution of any crime punishable under existing laws, the penalty shall be reclusion perpetua;(L3)",
+            "Arson may be considered a misdemeanor offense, which typically involves less severe acts of fire-setting or minor property damage.(2)"
 
 
            ],
@@ -28,78 +31,91 @@
                35,
                20,
                15,
-                5
+                6,
+                2
                   
            ] 
        },
        "Attempted Homicide" : {
            "penaltyItems" : [
-    "The minimum term shall be taken within the range of arresto mayor(LI)",
-    "Prision correccional, as maximum term of the indeterminate penalty (5)",
-    "Shall be deemed guilty of homicide and be punished by reclusion temporal (3)"
-
-    ],
+   "Any person who shall kill another without lawful cause and not defined as murder shall be punished.(5)",
+   "An attempt to commit homicide shall be punished.(4)",
+   "Any person who acts as accessory to homicide shall be punished.(4)",
+    "The court may order the defendant to pay restitution to the victim or the victim's family to compensate for any financial losses resulting from the crime.(4)"
+    
+  ],
            "penaltySentences" : [
-                    10,
-                     5,
-                     3
+                    20,
+                    15,
+                    12,
+                     12
+                     
+                    
+                     
             
            ] 
        },
        "Attempted Rape" : {
            "penaltyItems" : [
     "Is committed with the use of a deadly weapon or by two or more  persons, the penalty shall be reclusion perpetua to death(LI)",
-    "Is committed by reason or on the occasion  thereof, the penalty shall be reclusion perpetua to death(4)",
-    "When the rape is attempted and a homicide is committed by reason or on the occasion thereof, the penalty shall be reclusion perpetua to death. (3)"
-
-
+    "Shall commit an act of sexual assault upon another non-consenting person, by having his penis or any other object touch the victim’s vagina, anal or oral orifice, shall be punished.(5)",
+    "When the attempted rape is committed in full view of the spouse, parent, any of the children or other relatives within the third civil degree of consanguinity (5)",
+    "Sex offender registration: If convicted of attempted rape, an individual may be required to register as a sex offender.(5)"
            ],
            "penaltySentences" : [
-               15,
-                4,
-                3
+               40,
+               25,
+               22,
+                20
+                
                
            ] 
        },
        "Bribery" : {
            "penaltyItems" : [
-               "Prision correccional in its medium period(3)",
-               "Fine of not less than two times the value of the gift(2)"
+               "Individuals convicted of bribery may face disqualification from holding public office, government contracts, or specific professional positions. (4)",
+               "Asset Confiscation: In certain jurisdictions, authorities may have the power to seize or confiscate assets acquired through bribery. (3)",           
+                "Indirect Bribery shall be imposed upon any public officer who shall accept gifts offered to him by reason of his office. (3)",           
+                "Individuals or organisations convicted of the offences of bribing another, being bribed or bribing a foreign public official.(3)"
            ],
            "penaltySentences" : [
-               3,
-               2
+               12,
+               10,
+                 8,
+                 6
            ] 
        },
        "Burglary" : {
            "penaltyItems" : [
-               "who shall enter the residence (dwelling house) of another against the will of the tenant thereof shall be punished with the penalty of arresto mayor (3)",
-                " If the act shall be executed with violence or intimidation the penalty shall be prision correccional in the medium and maximum grade(2)"
-           ],
+           "Who shall enter the residence (dwelling house) of another against the will of the tenant thereof shall be punished with the penalty of arresto mayor (4)",
+           "If the act shall be executed with violence or intimidation the penalty shall be prision correccional in the medium and maximum grade.(4)",           
+            "Armed burglary involves the use of weapons or the infliction of bodily harm during the commission of the crime. (4)",          
+            "Misdemeanor burglary offenses can result in monetary fines, which vary depending on the jurisdiction and the severity of the crime. (2)"
+          
+            ],
            "penaltySentences" : [
-               9,
-               6
+               12,
+                12,
+                10,
+                   4
            ] 
        },
 "Child Abandonment" : {
            "penaltyItems" : [
-                "Arresto mayor , shall be imposed upon anyone who shall abandon a child under seven (7) years of age(LI)",
-                "Termination of parental rights, supervised access to the child, and jail time(5)",         
-                "Supervised or restricted access to one's children(4)",           
-                "Mandatory counseling or mental health treatment(3)",           
+                "Termination of parental rights, supervised access to the child, and jail time(3)",         
+                "Supervised or restricted access to one's children(3)",           
+                "Mandatory counseling or mental health treatment(2)",           
                 "Continual involvement with a child protective services agency(2)",           
                 "A ruined reputation(1)"           
 ],
            "penaltySentences" : [
                 7,
-                5,
-                4,
+                6,
                 3,
                 2,
                 1
            ] 
        },
-
     "Child Abuse" : {
             "penaltyItems" : [
     "The state where the abuse took place(LI)",
@@ -109,10 +125,10 @@
             
     ],
             "penaltySentences" : [
+                35,
+                20,
                 12,
-                 5,
-                 4,
-                 3
+                 6
                 
             ] 
         },
@@ -120,215 +136,245 @@
     "Child Pornography" :  { 
        "penaltyItems" : [
         "If the offender produced, offered, or distributed child pornography(LI)",
-        "If the offender engaged in cybersex with a child(4)",
         "If the online sexual exploitation of children was committed for the purpose of trafficking(LI)",
+        "If the offender engaged in cybersex with a child(4)",
         "If the offender attempted to commit child pornography(4)"
         
        
     ],
        "penaltySentences" : [
-           40,
-           12,
-           40,
+           35,
+           35,
+           20,
            12
            
        ]     
   },
+        
     "Computer Crime" :  { 
        "penaltyItems" : [
         "Illegal Access/If the offender accessed a computer system without authority and caused damage or interference(3)",
-        "Computer-related Forgery/If the forgery caused damage or resulted in financial gain(3)",
-        "Computer-related Fraud/ If the fraud caused damage or resulted in financial gain(3) ",
-        "If the offender offered or engaged in cybersex with a child(3) "
+        "Computer-related Forgery/If the forgery caused damage or resulted in financial gain(2)",
+        "Computer-related Fraud/ If the fraud caused damage or resulted in financial gain(2) ",
+        "If the offender offered or engaged in cybersex with a child(2) "
     ],
        "penaltySentences" : [
           6,
-          10,
-          20,
-          20
+          5,
+          4,
+          2
        ]     
-  },    
+  },
     "Cyberbullying" :  { 
        "penaltyItems" : [
-        "Forgery of checks, bills, or notes issued by banks or other financial institutions, or any other commercial or economic document(3)",
-        "Forgery of a private document(2)",
-        "Forgery of a public or official document(3)",
-        "Use of falsified documents(3) "
+        "Repeatedly sending offensive, rude and insulting message(2)",
+        "Distributing derogatory information about the victim(2)",
+        "Posting or sending offensive photos of the victim(2)",
+        "Breaking into victim's account to send/upload/distribute embarrassing materials(2)", 
+        "Tricking victims into revealing personal or embarrassing information(2)",
+        "Sending threats of harm or engaging in online activities that cause fear(2)"
     ],
        "penaltySentences" : [
           10,
-           4,
            6,
-           6
+           6,
+           5,
+           4,
+            2
        ]     
   },
     "Domestic  Violence" :  { 
        "penaltyItems" : [
-        "If the offender caused physical harm or injury to the victim(4)",
+        "If the offender engaged in sexual violence or abuse against the victim(4)",
+        "If the offender caused physical harm or injury to the victim, the damage is serious(4)",
         "If the offender caused psychological harm or emotional distress to the victim(3)",
-        "If the offender engaged in sexual violence or abuse against the victim(LI)"
-        
+        "Forces you to have sex or engage in sexual acts against your will(3)",
+        "You have acted out verbally or physically against your abuser, yelling, pushing or hitting your partner during conflicts(3)",
+        "Threatens to tell friends, family, colleagues or community members your sexual orientation or gender identity(2)"
     ],
        "penaltySentences" : [
-          20,
-          10,
-          40
-           
+          15,
+          13,
+          6,
+          7,
+          6,
+          3 
        ]     
   },
-    "Drug Possession": {
+  "Drug Possession" : {
     "penaltyItems": [
   
     "If a person commits a shall be imposed on anyone who imports any controlled precursor.(LI)",
     "If a person who sells, trades, administers, dispenses, delivers, gives away, distributes, dispatches.(4)",
+    "Positive/Possess Methylenedioxymethamphetamine (MDMA) or commonly known as Ecstasy, or by its any other name(4)",
     "shall engage in the manufacture of any dangerous drug(3)",
+    "Get caught using drug or positive in methamphetamine or commonly known as Shabu (3)",
     "shall import or bring into OR EXPORT FROM the Philippines any dangerous drugs(2)"
 
     ],
     "penaltySentences": [
-        12,
-         4,
-         3,
-         2
-
-
+         25,
+         18,
+         10,
+         8,
+         5
     ]
-
     },
     "Drug Smuggling": {
     "penaltyItems": [
     
     "Importing  into the Philippines without the required import permit from the regulatory agencies(LI)",
-    "life imprisonment and a fine of twice the fair value of smuggled agricultural product.(5)",
-    "Using fake, fictitious or fraudulent import permits or shipping documents(4)",
-    "Acting as broker of the violating importer(3)"
+    "Positive/Possess Methylenedioxymethamphetamine (MDMA) or commonly known as Ecstasy, or by its any other name(4)",
+    "Possess 200 grams of Shabu on him versus less than a gram.(4)",
+    "Possess 200 cannabis or known as Marijuana or Indian Hemp on him versus less than a gram.(3)",
+    "Importing twice the fair value of smuggled agricultural product.(3)",
+    "Using fake, fictitious or fraudulent import permits or shipping documents(2)",
+    "Acting as broker of the violating importer(2)"
 
 
     ],
     "penaltySentences": [
     
-        35,
+        25,
         15,
+        13,
+        8,
+        8,
         7,
-        2
+        5
         ]
     },
     "Drug Trafficking": {
     "penaltyItems": [
         "If a person who sell, trade, administer, dispense, deliver, give away, distribute, dispatch, or transport dangerous drugs(LI)",
-        "If a person trades, administers, dispenses, delivers, gives away, distributes, etc.(3)",
-        "If a person is a protector/coddler of violators it also punished.(2)"
+        "If a person trades, administers, dispenses, delivers, gives away, distributes, etc.(4)",
+        "Possess 200 grams of Cocaine on him versus less than a gram.(4)",
+        "Possess 200 grams of Shabu on him versus less than a gram.(4)",
+        "Possess 200 cannabis or known as Marijuana or Indian Hemp on him versus less than a gram.(3)",
+        "If a person is a protector/coddler of violators it also punished.(3)"
     ],
     "penaltySentences": [
-        12,
-         3,
-         2
+        25,
+         18,
+         15,
+         13,
+         8,
+         8
     ]
     },
     "Extortion": {
     "penaltyItems": [
-    
-    "Twice the value of the monetary instrument or property involved in the offense(LI)",
+    "first degree extortion usually involves the perpetrator making threats of physical harm or confinement, such as kidnapping.(LI)",
+    "Second degree might apply if the perpetrator threatens to falsely accuse the victim of having committed a crime, or threatens to expose a secret.(5)",
+    "Twice the value of the monetary instrument or property involved in the offense(4)",
     " A person who facilitates money laundering is guilty of money laundering.(3)",
     "Any person knowing that any monetary instrument or property is required under this Act.(2)"
 
    
     ],
     "penaltySentences": [
+     35,
+      18,
+      13,
+      8,
+      5
 
-      6,
-      3,
-      2
-    
-    
-    
     ]
     },
     "Forgery" :  { 
        "penaltyItems" : [
         "Forgery of checks, bills, or notes issued by banks or other financial institutions, or any other commercial or economic document(3)",
-        "Forgery of a private document(2)",
         "Forgery of a public or official document(3)",
-        "Use of falsified documents(3) "
+        "Use of falsified documents(3)",
+       "Forgery of a private document(2)"
+
+
     ],
        "penaltySentences" : [
           10,
-           4,
            6,
-           6
+           6,
+           4
        ]     
   },
     "Fraud" :  { 
        "penaltyItems" : [
-        "Estafa or fraud involving a large amount of money(4)",
-        "Committing fraud through the use of electronic data or devices (e.g., telemarketing, wire fraud)(1)",
-        "Swindling(4)"
+        "Estafa or fraud involving a large amount of money(4)",   
+        "Swindling(4)",
+        "Committing fraud through the use of electronic data or devices (e.g., telemarketing, wire fraud)(1)"
+        
        ],
        "penaltySentences" : [
-          20,
           12,
-          20
+          8,
+          6 
        ]     
   },
     "Harassment" :  { 
        "penaltyItems" : [
-        "Sexual harassment(3)",
-        "Grave Threats,he act threatened to be done is a crime e.g. to kill, to burn or destroy property, to box or to inflict injuries(2)",
-        "Light Threats,threatening another with a weapon, or drawing such weapon in a quarrel(1)"
+   "The harassment targeted someone based on race, ethnicity, national origin, gender, religion, age, disability, or sexual orientation. (5)",
+   "They have previously been convicted of harassment or of communicating a threat.(4)",  
+   "The person they are harassing has a restraining order against them.(2)",
+   "A person found guilty of sexual harassment shall be penalized by imprisonment.(1)"
         
        ],
        "penaltySentences" : [
-            6,
-            6,
-            1
+           20,
+           12,
+             6,
+              1
+
+          
        ]     
   },
     "Homicide" :  { 
        "penaltyItems" : [
-        "Homicide without any aggravating circumstances(4)",
-        "Homicide with aggravating circumstances such as treachery, cruelty, or evident premeditation(4)",
-        "Homicide involving the use of firearms (LI)"
+        "Homicide involving the use of firearms (LI)" ,    
+        "Homicide without any aggravating circumstances (4)",
+        "Homicide with aggravating circumstances such as treachery, cruelty, or evident premeditation.(4)"
+           
        ],
        "penaltySentences" : [
+          35,
           12,
-          20,
-          40
+            8
        ]     
   },
     "Identity theft" :  { 
        "penaltyItems" : [
-        "Simple identity theft(2)",
-        "Identity theft involving the use of false identity or documents(3)",
-        "Aggravated identity theft involving the use of identity theft to commit other offenses such as fraud or other financial crimes(4)"
+       "Aggravated identity theft involving the use of identity theft to commit other offenses such as fraud or other financial crimes (4)" ,
+        "Identity theft involving the use of false identity or documents (3)",
+       "Simple identity theft (2)"
        ],
        "penaltySentences" : [
-           3,
+          20,
            6,
-          20
+           3
        ]     
   },
-    "Indecent exposure" :  { 
+       "Indecent exposure" :  { 
        "penaltyItems" : [
-        "Indecent exposure with the use of violence or threat(1)",
-        "Repeat offenses of indecent exposure with aggravating circumstances(3)"
-        
+              "If the act of indecent exposure is accompanied by lewd or lascivious acts, it may be      considered an act of lasciviousness (3)",
+                "Repeat offenses of indecent exposure with aggravating circumstances(3)",
+                "Indecent exposure with the use of violence or threat(1)"
        ],
        "penaltySentences" : [
-          2,
-          6
-          
+                 12 ,   
+                  6,
+                  2
+
        ]     
   },
     "Kidnapping" :  { 
        "penaltyItems" : [
         "Kidnapping for ransom or extortion(LI)",
-        "Kidnapping for illegal detention(5)",
-        "Kidnapping for terrorism(LI)"
+        "Kidnapping for terrorism(LI)",
+         "Kidnapping for illegal detention(5)"
        ],
        "penaltySentences" : [
           40,
-          30,
-          40
+          40,
+          30
        ]     
   },
     "Manslaughter" :  { 
@@ -345,67 +391,69 @@
   },
     "Medical Marijuana" :  { 
        "penaltyItems" : [
+        "if the offense is committed within 100 meters of a school, park, or other public place frequented by minors(5)",
         "If the amount of marijuana involved is less than 10 grams(2)",
-        "If the amount of marijuana involved is 10 grams or more(2)",
-        "if the offense is committed within 100 meters of a school, park, or other public place frequented by minors(5)"
+        "If the amount of marijuana involved is 10 grams or more(2)"
+        
        ],
        "penaltySentences" : [
+          20,
           4,
-          4,
-          20
+          4
        ]
   },
     "Money Laundering" :  { 
        "penaltyItems" : [
-        "If the amount involved is less than Php5,000,000(2)",
-        "If the amount involved is equal to or more than Php5,000,000 but less than Php75,000,000(2)",
-        "If the amount involved is equal to or more than Php75,000,000(LI)"
+        "If the amount involved is equal to or more than Php75,000,000 (LI)",
+        "If the amount involved is less than Php5,000,000 (2)",
+        "If the amount involved is equal to or more than Php5,000,000 but less than Php75,000,000(2)"
        ],
        "penaltySentences" : [
-          12,
+          35,
           20,
-          40
+          12
        ] 
   },
-    "Murder" :  {
+    "Murder":  {        
         "penaltyItems" : [
-            "Murder through use of treachery, cruelty, or other aggravating circumstances(5)",
+
             "Parricide (murder of a spouse, parent, or child)(LI)",
-            "Murder through poisoning(LI)"
+            "Murder through poisoning (LI)",  
+             "Murder through use of treachery, cruelty, or other aggravating circumstances (5)"
            
            ],
            "penaltySentences" : [
-              20,
+              40,
               30,
-              40
+              20
            ]
     },
-    "Perjury" :  {
+    "Perjury":  {
         "penaltyItems" : [
+            "If the perjury is committed in the testimony or evidence presented in a criminal case(3)",
             "If the perjury is committed in any official proceeding or in the presence of an official who is authorized to administer an oath(2)",
             "If the perjury is committed in an affidavit submitted to a government office(2)",
-            "If the perjury is committed in any of the documents required by law to be submitted to a government office(2)",
-            "If the perjury is committed in the testimony or evidence presented in a criminal case(3)"
+            "If the perjury is committed in any of the documents required by law to be submitted to a government office(2)"
            ],
            "penaltySentences" : [
+              8,
               6,
               6,
-              6,
-              8
+              6
            ]
     },
-    "Prostitution" :  {
+    "Prostitution":  {
         "penaltyItems" : [
-            "If the person engaging in prostitution is a minor(3)",
-            "If the person caught engaging in child prostitution(4)"
+            "If the person caught engaging in child prostitution(4)",
+            "If the person engaging in prostitution is a minor(3)"
            ],
            "penaltySentences" : [
-              12,
-              15
+              15,
+              12
         
            ]
     },
-    "Pyramid Schemes" :{
+"Pyramid Schemes" :{
         "penaltyItems" : [
             "Organizing or promoting a pyramid scheme(5)",
             "Participating in a pyramid scheme(3)",
@@ -419,12 +467,15 @@
     },
     "Public Intoxication" :{
         "penaltyItems" : [
-            "The person's level of intoxication has caused a disturbance in the public order or posed a threat to the safety of persons or property.(L2)",
-            "The person may exhibit behavior such as being loud or disruptive, stumbling or falling, or engaging in aggressive or dangerous actions(L1)"
+            "The person's level of intoxication has caused a disturbance in the public order or posed a threat to the safety of persons or property.(2)",
+            "The person may exhibit behavior such as being loud or disruptive, stumbling or falling, or engaging in aggressive or dangerous actions (1)",
+            "Who performs acts that disturb the public peace, or causes scandal or shock to the public, can be punished with arresto mayor (1)"
+
            ],
            "penaltySentences" : [
               5,
-              1
+              1,
+             1
            ]
     },
        "Rape": {
@@ -438,109 +489,27 @@
                "Any physical overt act manifesting resistance against the act of rape in any degree from the offended party or where the offended party is so situated as to render her/him incapable of giving valid consent(5)"
            ],
            "penaltySentences" : [
+               40,
+               40,
+               40,
+               40,
+               40,
                30,
-               30,
-               35,
-               35,
-               35,
-               20,
                20
            ] 
        },
-       "Robbery" : {
-           "penaltyItems" : [
-               "The penalty of reclusion perpetua to death, in the occasion of robbery, the crime of homicide shall have been committed(LI)",
-               "The penalty of reclusion perpetua to death, in the occasion of robbery, the crime of rape shall have been committed(LI)",
-               "Robbery with physical injuries, committed in an uninhabited place and by a band, or with the use of a firearm(5)",
-               "By the breaking of doors, wardrobes, chests, or any other kind of locked or sealed furniture or receptacle(4)",
-               "If the entrance has been effected through the use of false keys, picklocks or other similar tools(3)",
-               "If the entrance has been effected through any opening not intended for entrance or egress(2)"
-           ],
-           "penaltySentences" : [
-               35,
-               35,
-               18,
-               12,
-               10,
-               6
-           ] 
-       },
-       "Sexual Assault" : {
-           "penaltyItems" : [
-               "Unwanted sexual activity with perpetrators using force(4)",
-               "Holding the private part of the victim(4)",
-               "Forced to hold the private part of the perpetrators(4)",
-               "Making threats or taking advantage of victims not able to give consent(3)",
-               "Intimidating look to the victim, showing signs like eye-to-eye contact while biting the lips, Unnecessary holding, etc…(2)"
-           ],
-           "penaltySentences" : [
-               12,
-               12,
-               12,
-                9,
-               6
-           ] 
-       },
-       "Stalking" : {
-           "penaltyItems" : [
-               "Repeated surveillance and commit physical injuries to the victim(2)",
-               "Repeated surveillance and harassed the victim(2)",
-               "Repeated surveillance by an individual or group toward another person(1)"
- 
-           ],
-           "penaltySentences" : [
-               2,
-               2,
-               1
-           ] 
-       },
-       "Tax Evasion" : {
-           "penaltyItems" : [
-               "Failure to pay taxes, Failure to register with the BIR, Fake entries in financial books and records and Using fake accountable forms(2)",
-               "Receipts and invoices without numbers, business names, and other identifying information of the business(2)",
-               "Receipts, sales, or commercial invoices without authority from BIR(2)",
-               "Double or multiple sets of receipts and invoices(1)",
-               "Didn’t file a value-added tax (VAT) return(1)"
-           ],
-           "penaltySentences" : [
-               3,
-               3,
-               3,
-               1,
-               1
-           ] 
-       },
-       "Theft" : {
-           "penaltyItems" : [
-               "The theft is committed with grave abuse of confidence(4)",
-               "The property stolen is either a land property, motor vehicle, mail matter, or large cattle(4)",
-               "The property stolen consists of coconuts taken from the premises of a plantation(3)",
-               "The property stolen is fish taken from a fishpond or fishery; and the property was taken on the occasion of fire, earthquake, typhoon(2)",
-               "Stole goods from the store(2)",
-               "The theft is committed by a domestic servant(2)"
-           ],
-           "penaltySentences" : [
-               12,
-               12,
-               7,
-               4,
-               4
-           ] 
-       },
-       "Vandalism" : {
-           "penaltyItems" : [
-               "Vandalism can take many forms, including graffiti(2)",
-               "Defacing public or private property(2)",
-               "Breaking windows(1)",
-               "Tearing down signs or posters(1)"
-           ],
-           "penaltySentences" : [
-               35,
-               35,
-               18,
-               12,
-               10,
-               6
-           ] 
-       }
+    "Vandalism" : {
+        "penaltyItems" : [
+            "Vandalism can take many forms, including graffiti(2)",
+            "Defacing public or private property(2)",
+            "Breaking windows(1)",
+            "Tearing down signs or posters(1)"
+        ],
+        "penaltySentences" : [
+            2,
+            2,
+            1,
+            1
+        ] 
+    }
 }
