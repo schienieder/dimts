@@ -40,6 +40,7 @@ interface DataShape {
     civilCaseCitizensList: any;
     docketCaseCitizensList: any;
     citizenCasesList: any;
+    crimeList: any;
 }
 
 const initialState: DataShape = {
@@ -77,7 +78,8 @@ const initialState: DataShape = {
     criminalCaseCitizensList : [],
     civilCaseCitizensList : [],
     docketCaseCitizensList : [],
-    citizenCasesList : []
+    citizenCasesList : [],
+    crimeList : []
 }
 
 // ACCOUNT THUNKS
@@ -504,6 +506,15 @@ export const deleteCaseCitizen = createAsyncThunk(
     }
 )
 
+// CRIME THUNKS
+export const getCrimeList = createAsyncThunk(
+    'data/getCrimeList',
+    async () => {
+        const dataRepo = new DataRepository()
+        return await dataRepo.CrimeList(localStorage.jwt_token)
+    }
+)
+
 const dataSlice = createSlice({
     name : 'data',
     initialState,
@@ -874,6 +885,16 @@ const dataSlice = createSlice({
             return { ...state, dataLoading : false, citizenCasesList : action.payload }
         })
         builder.addCase(citizenCases.rejected, (state) => {
+            return { ...state, dataLoading : false }
+        })
+        // CRIME 
+        builder.addCase(getCrimeList.pending, (state) => {
+            return { ...state, dataLoading : true }
+        })
+        builder.addCase(getCrimeList.fulfilled, (state, action) => {
+            return { ...state, dataLoading : false, crimeList : action.payload }
+        })
+        builder.addCase(getCrimeList.rejected, (state) => {
             return { ...state, dataLoading : false }
         })
     }

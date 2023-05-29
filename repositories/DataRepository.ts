@@ -354,6 +354,14 @@ export default class DataRepository {
         })
         return JSON.parse(data)
     }
+    async CrimeList(jwt_token: string) {
+        const { data } = await backendConn.get('crimes_list/', {
+            headers : {
+                Authorization : `Bearer ${ jwt_token }`
+            }
+        })
+        return data.results
+    }
     // POST REQUESTS
     // New Case Citizens 
     async NewCaseCitizens(jwt_token: string, formData: any) { 
