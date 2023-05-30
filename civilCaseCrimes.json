@@ -1,0 +1,28 @@
+{
+    "data" : [
+        {"crime_type": "Annulment of auction sale", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Annulment of documents", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Annulment of foreclosure sale", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Annulment of judgment", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Annulment of marriage", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Annulment of mortgage", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Annulment of sale", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Annulment of tax sale", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Annulment of title", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Breach of contract", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Cancellation of adverse claim", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Cancellation of encumbrance", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Cancellation of entry", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Cancellation of lien", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Cancellation of title", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Consolidation of ownership", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Damages", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Easement", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Ejectment", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Exclusion", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Injunction", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Insurance of owner's duplicate TCT", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Just compensation", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"},
+        {"crime_type": "Reconveyance", "penalty_items" : [], "penalty_sentences" : [], "case_type" : "Civil"}
+    ]
+}

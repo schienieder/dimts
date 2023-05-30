@@ -6,28 +6,25 @@ import MySelectField from "../MySelectField";
 import { fieldRules } from "../authHelper";
 import MyCreatableSelect from "../MyCreatableSelect";
 import { useAppDispatch } from "../../redux/hooks";
-import { newCrime } from "../../redux/dataSlice";
+import { updateCrime } from "../../redux/dataSlice";
 
-interface AddCrimeParams {
+interface UpdateCrimeParams {
 	isShow: boolean;
 	onConfirm(): void;
 	onCancel(): void;
+	selectedCrime: any;
 }
 
-const AddCrime = ({ isShow, onConfirm, onCancel }: AddCrimeParams) => {
+const UpdateCrime = ({
+	isShow,
+	onConfirm,
+	onCancel,
+	selectedCrime,
+}: UpdateCrimeParams) => {
 	const { control, handleSubmit, setValue } = useForm();
 
 	const [notEqualItems, setNotEqualItems] = useState(false);
 	const dispatch = useAppDispatch();
-
-	// const [penaltyOptions, setPenaltyOptions] = useState([
-	// 	{
-	// 		penaltyItemName: "penaltyItem1",
-	// 		penaltyItemValue: "",
-	// 		penaltySentenceName: "penaltySentence1",
-	// 		penaltySentenceValue: 0,
-	// 	},
-	// ]);
 
 	const caseType = useWatch({
 		control,
@@ -48,7 +45,8 @@ const AddCrime = ({ isShow, onConfirm, onCancel }: AddCrimeParams) => {
 	});
 
 	const onSubmit = (data: any) => {
-		console.log("Add crime data:", data);
+		console.log("Update crime data:", data);
+
 		if (data.caseType === "Criminal") {
 			const notEqual =
 				data?.penaltyItems.length !== data?.penaltySentences.length;
@@ -67,12 +65,16 @@ const AddCrime = ({ isShow, onConfirm, onCancel }: AddCrimeParams) => {
 					return Number(sentence.value);
 			  })
 			: [];
+		const formData = {
+			crime_type: data.crimeType,
+			penalty_items: JSON.stringify(items),
+			penalty_sentences: JSON.stringify(sentences),
+			case_type: data.caseType,
+		};
 		dispatch(
-			newCrime({
-				crime_type: data.crimeType,
-				penalty_items: JSON.stringify(items),
-				penalty_sentences: JSON.stringify(sentences),
-				case_type: data.caseType,
+			updateCrime({
+				formData,
+				crime_id: selectedCrime.crimeId,
 			})
 		).then(() => onConfirm());
 	};
@@ -81,7 +83,7 @@ const AddCrime = ({ isShow, onConfirm, onCancel }: AddCrimeParams) => {
 		<SubmitModal
 			isShow={isShow}
 			addTitle="Crime List"
-			addText="Add New Crime"
+			addText="Update Crime Record"
 			onConfirm={handleSubmit(onSubmit)}
 			onCancel={onCancel}
 		>
@@ -92,7 +94,7 @@ const AddCrime = ({ isShow, onConfirm, onCancel }: AddCrimeParams) => {
 					fieldType="text"
 					fieldName="crimeType"
 					fieldRules={fieldRules.requiredRule}
-					defaultValue=""
+					defaultValue={selectedCrime.crimeType}
 					setFieldValue={setValue}
 				/>
 				<MySelectField
@@ -104,7 +106,7 @@ const AddCrime = ({ isShow, onConfirm, onCancel }: AddCrimeParams) => {
 					fieldName="caseType"
 					fieldLabel="Designation"
 					fieldRules={fieldRules.requiredRule}
-					defaultValue=""
+					defaultValue={selectedCrime.caseType}
 					setFieldValue={setValue}
 				/>
 				{caseType === "Criminal" ? (
@@ -112,28 +114,83 @@ const AddCrime = ({ isShow, onConfirm, onCancel }: AddCrimeParams) => {
 						<div className="flex flex-col">
 							<MyCreatableSelect
 								myControl={control}
-								myOptions={[]}
+								myOptions={
+									selectedCrime.penaltyItems.length
+										? selectedCrime.penaltyItems.map((item: any) => {
+												return {
+													label: item,
+													value: item,
+												};
+										  })
+										: []
+								}
 								isAllowMulti
 								fieldName="penaltyItems"
 								fieldLabel="Penalty Descriptions"
 								fieldRules={fieldRules.requiredRule}
-								defaultValue=""
+								defaultValue={
+									selectedCrime.penaltyItems.length
+										? selectedCrime.penaltyItems.map((item: any) => {
+												return {
+													label: item,
+													value: item,
+												};
+										  })
+										: []
+								}
 								setFieldValue={setValue}
 							/>
 						</div>
 						<div className="flex flex-col">
 							<MyCreatableSelect
 								myControl={control}
-								myOptions={[]}
+								myOptions={
+									selectedCrime.penaltySentences.length
+										? selectedCrime.penaltySentences.map((item: any) => {
+												return {
+													label: item,
+													value: item,
+												};
+										  })
+										: []
+								}
 								isAllowMulti
 								fieldName="penaltySentences"
 								fieldLabel="Imprisonment Years"
+								defaultValue={
+									selectedCrime.penaltySentences.length
+										? selectedCrime.penaltySentences.map((item: any) => {
+												return {
+													label: item,
+													value: item,
+												};
+										  })
+										: []
+								}
 								fieldRules={fieldRules.requiredRule}
-								defaultValue=""
 								setFieldValue={setValue}
 							/>
 						</div>
 					</>
+				) : null}
+				{selectedCrime?.penaltyItems !== undefined &&
+				selectedCrime?.penaltyItems.length ? (
+					<div className="col-span-2 max-w-screen-sm flex flex-col gap-y-1">
+						<h4 className=" text-xl font-semibold">Penalty Description List</h4>
+						<ol className="space-y-1 border border-gray-200 rounded divide-y divide-slate-200">
+							{selectedCrime.penaltyItems.map((item: any, index: number) => {
+								return (
+									<li
+										key={`${item}-${index}`}
+										className="py-2 px-5 text-sm flex gap-x-3"
+									>
+										{`${index + 1}. `}
+										<p>{item}</p>
+									</li>
+								);
+							})}
+						</ol>
+					</div>
 				) : null}
 				{notEqualItems && penaltyItems.length !== penaltySentences.length ? (
 					<div className="col-span-2 w-full flex justify-center -mt-5">
@@ -147,4 +204,4 @@ const AddCrime = ({ isShow, onConfirm, onCancel }: AddCrimeParams) => {
 	);
 };
 
-export default AddCrime;
+export default UpdateCrime;

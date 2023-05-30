@@ -10,6 +10,7 @@ interface MyCreatableSelectProps {
 	fieldRules: any;
 	defaultValue?: string;
 	setFieldValue?: any;
+	isAllowMulti?: boolean;
 }
 
 const selectStyles = {
@@ -68,6 +69,7 @@ const MyCreatableSelect = ({
 	fieldRules,
 	defaultValue,
 	setFieldValue,
+	isAllowMulti,
 }: MyCreatableSelectProps) => {
 	useEffect(() => {
 		setFieldValue ? setFieldValue(fieldName, defaultValue) : null;
@@ -87,13 +89,16 @@ const MyCreatableSelect = ({
 					<CreatableSelect
 						styles={selectStyles}
 						defaultValue={defaultValue ?? ""}
-						// isMulti
+						isMulti={isAllowMulti ?? false}
 						isClearable
 						name={fieldName}
 						options={myOptions}
 						id={fieldName}
 						onChange={onChange}
 						className="w-full max-w-[288px]"
+						isValidNewOption={(inputValue, selectedOptions) => {
+							return true;
+						}}
 					/>
 					{error && <p className="text-xs text-rose-500">{error.message}</p>}
 				</div>

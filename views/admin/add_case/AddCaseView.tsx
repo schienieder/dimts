@@ -5,20 +5,19 @@ import MyMultiSelectField from "../../../components/MyMultiSelectFieldFull";
 // import AdminBreadCrumbs from "../../../components/admin/AdminBreadCrumbs";
 import { useForm, useWatch } from "react-hook-form";
 import { fieldRules } from "../../../components/authHelper";
-import { criminalCrimeTypes, civilCrimeTypes } from "../../../crimeTypesHelper";
 import { QRCodeCanvas } from "qrcode.react";
 import { nanoid } from "@reduxjs/toolkit";
-import { useAppDispatch } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { useRouter } from "next/router";
-import { createNewDocket } from "../../../redux/dataSlice";
+import { createNewDocket, getCrimeList } from "../../../redux/dataSlice";
 import { PulseLoader } from "react-spinners";
-import crimeQuestions from "../../../crime_questions.json";
-
-const caseCrimeSentences: any = crimeQuestions;
 
 const AddCaseView = () => {
 	const { control, handleSubmit, setValue } = useForm();
 	const dispatch = useAppDispatch();
+	const { crimeList, criminalCrimeList, civilCrimeList } = useAppSelector(
+		(state) => state.dataState
+	);
 
 	const [qrValue, setQrValue] = useState<any>();
 	const [qrTracker, setQrTracker] = useState<any>();
@@ -27,6 +26,8 @@ const AddCaseView = () => {
 
 	const router = useRouter();
 	const { type } = router.query;
+
+	const crimeOptions = type === "Criminal" ? criminalCrimeList : civilCrimeList;
 
 	const caseType = useWatch({
 		control,
@@ -103,6 +104,10 @@ const AddCaseView = () => {
 			});
 		}, 1000);
 	};
+
+	useEffect(() => {
+		dispatch(getCrimeList());
+	}, []);
 
 	useEffect(() => {
 		let tracker = nanoid();
@@ -197,11 +202,12 @@ const AddCaseView = () => {
 						{/*  */}
 						<MyMultiSelectField
 							myControl={control}
-							myOptions={
-								type != undefined && String(type).toLowerCase() === "criminal"
-									? criminalCrimeTypes
-									: civilCrimeTypes
-							}
+							myOptions={crimeOptions.map((crime: any) => {
+								return {
+									label: crime.crime_type,
+									value: crime.crime_type,
+								};
+							})}
 							fieldName="caseCrimeType"
 							fieldLabel="Crime Type"
 							fieldRules={fieldRules.requiredRule}
@@ -278,30 +284,34 @@ const AddCaseView = () => {
 						{caseCrimeType.length && type === "Criminal" ? (
 							<div className="col-span-2 w-full overflow-y-auto flex flex-col gap-y-5">
 								{caseCrimeType.map((crimeType: any) => {
-									const crimeTypeValue = crimeType.value;
-									if (caseCrimeSentences[crimeTypeValue] !== undefined) {
+									const crimeTypeValue = crimeList.find(
+										(crime: any) => crime.crime_type === crimeType.value
+									);
+									if (crimeTypeValue) {
 										return (
 											<div
 												key={crimeType}
 												className="flex flex-col gap-y-1"
 											>
-												<h4 className="text-xl font-bold">{crimeTypeValue}</h4>
+												<h4 className="text-xl font-bold">
+													{crimeTypeValue.crime_type}
+												</h4>
 												<div className="flex flex-col gap-y-3">
-													{caseCrimeSentences[crimeTypeValue].penaltyItems.map(
+													{JSON.parse(crimeTypeValue.penalty_items).map(
 														(crimeQuestion: any, index: number) => {
+															const crime_penalty_sentences = JSON.parse(
+																crimeTypeValue.penalty_sentences
+															);
 															return (
 																<div
-																	key={`${crimeTypeValue}-${index}`}
+																	key={`${crimeTypeValue.crime_type}-${index}`}
 																	className="flex items-center px-4 border border-gray-300 rounded"
 																>
 																	<input
 																		type="checkbox"
 																		name="bordered-checkbox"
 																		className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-																		value={
-																			caseCrimeSentences[crimeTypeValue]
-																				.penaltySentences[index]
-																		}
+																		value={crime_penalty_sentences[index]}
 																		onClick={(e: any) => handleCheckChange(e)}
 																	/>
 																	<label className="w-full py-4 ml-2 text-sm font-normal text-gray-700">

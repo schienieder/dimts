@@ -433,6 +433,14 @@ export default class DataRepository {
         })
         return data
     }
+    async NewCrime(jwt_token: string, formData: any) {
+        const { data } = await backendConn.post('new_crime/', formData, {
+            headers : {
+                Authorization : `Bearer ${ jwt_token }`
+            }
+        })
+        return data
+    }
     // PUT REQUESTS
     // Update account
     async UpdateAccount(jwt_token: string, formData: any, account_id: number) {
@@ -481,6 +489,14 @@ export default class DataRepository {
     }
     async UpdateCourtProceeding(jwt_token: string, formData: any, proceeding_id: number) {
         const { data } = await backendConn.put(`court_proceeding/update/${ proceeding_id }`, formData, {
+            headers : {
+                Authorization : `Bearer ${ jwt_token }`
+            }
+        })
+        return data.results
+    }
+    async UpdateCrime(jwt_token: string, formData: any, crime_id: number) {
+        const { data } = await backendConn.put(`crime/update/${ crime_id }`, formData, {
             headers : {
                 Authorization : `Bearer ${ jwt_token }`
             }
@@ -545,6 +561,15 @@ export default class DataRepository {
     // Delete Case Citizen
     async DeleteCaseCitizen(jwt_token: string, pk: number) {
         const { data } = await backendConn.delete(`case_citizen/delete/${ pk }`, {
+            headers : {
+                Authorization : `Bearer ${ jwt_token }`
+            }
+        })
+        return data.results
+    }
+    // Delete Crime
+    async DeleteCrime(jwt_token: string, pk: number) {
+        const { data } = await backendConn.delete(`crime/delete/${ pk }`, {
             headers : {
                 Authorization : `Bearer ${ jwt_token }`
             }

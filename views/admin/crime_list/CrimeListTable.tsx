@@ -2,9 +2,15 @@ import React from "react";
 
 type CrimeListTableParams = {
 	crimeList: any;
+	onShowEdit(crime_id: number): void;
+	onShowWarning(crime_id: number): void;
 };
 
-const CrimeListTable = ({ crimeList }: CrimeListTableParams) => {
+const CrimeListTable = ({
+	crimeList,
+	onShowEdit,
+	onShowWarning,
+}: CrimeListTableParams) => {
 	return (
 		<div className="overflow-x-auto">
 			<table className="min-w-max w-full table-auto">
@@ -42,7 +48,7 @@ const CrimeListTable = ({ crimeList }: CrimeListTableParams) => {
 									<div className="flex items-center justify-center gap-x-5">
 										<div
 											className="w-4 mr-2 transform hover:text-purple-600 hover:scale-110 cursor-pointer"
-											// onClick={() => onShowEdit(crime.id)}
+											onClick={() => onShowEdit(crime.id)}
 										>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +67,7 @@ const CrimeListTable = ({ crimeList }: CrimeListTableParams) => {
 										</div>
 										<div
 											className="w-4 mr-2 transform hover:text-purple-600 hover:scale-110 cursor-pointer"
-											// onClick={() => onShowWarning(crime.id)}
+											onClick={() => onShowWarning(crime.id)}
 										>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"

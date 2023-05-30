@@ -41,6 +41,8 @@ interface DataShape {
     docketCaseCitizensList: any;
     citizenCasesList: any;
     crimeList: any;
+    criminalCrimeList: any;
+    civilCrimeList: any;
 }
 
 const initialState: DataShape = {
@@ -79,7 +81,9 @@ const initialState: DataShape = {
     civilCaseCitizensList : [],
     docketCaseCitizensList : [],
     citizenCasesList : [],
-    crimeList : []
+    crimeList : [],
+    criminalCrimeList : [],
+    civilCrimeList : [],
 }
 
 // ACCOUNT THUNKS
@@ -511,7 +515,38 @@ export const getCrimeList = createAsyncThunk(
     'data/getCrimeList',
     async () => {
         const dataRepo = new DataRepository()
-        return await dataRepo.CrimeList(localStorage.jwt_token)
+        const res = await dataRepo.CrimeList(localStorage.jwt_token)
+        const criminalCrimes = res.filter((crime: any) => crime.case_type === 'Criminal')
+        const civilCrimes = res.filter((crime: any) => crime.case_type === 'Civil')
+        return {
+            crimeList : res,
+            criminalCrimeList : criminalCrimes,
+            civilCrimeList : civilCrimes
+        }
+    }
+)
+
+export const newCrime = createAsyncThunk(
+    'data/newCrime',
+    async (formData: any) => {
+        const dataRepo = new DataRepository()
+        await dataRepo.NewCrime(localStorage.jwt_token, formData)
+    }
+)
+
+export const updateCrime = createAsyncThunk(
+    'data/updateCrime',
+    async (args: { formData: any, crime_id: number }) => {
+        const dataRepo = new DataRepository()
+        await dataRepo.UpdateCrime(localStorage.jwt_token, args.formData, args.crime_id)
+    }
+)
+
+export const deleteCrime = createAsyncThunk(
+    'data/deleteCrime',
+    async (crime_id: number) => {
+        const dataRepo = new DataRepository()
+        await dataRepo.DeleteCrime(localStorage.jwt_token, crime_id)
     }
 )
 
@@ -892,7 +927,8 @@ const dataSlice = createSlice({
             return { ...state, dataLoading : true }
         })
         builder.addCase(getCrimeList.fulfilled, (state, action) => {
-            return { ...state, dataLoading : false, crimeList : action.payload }
+            const { crimeList, criminalCrimeList, civilCrimeList } = action.payload
+            return { ...state, dataLoading : false, crimeList : crimeList, criminalCrimeList : criminalCrimeList, civilCrimeList : civilCrimeList }
         })
         builder.addCase(getCrimeList.rejected, (state) => {
             return { ...state, dataLoading : false }
