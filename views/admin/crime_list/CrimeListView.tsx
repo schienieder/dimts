@@ -131,7 +131,7 @@ const CrimeListView = () => {
 	const firstLogIndex = lastLogIndex - 10;
 
 	const currentCrimeList = useMemo(() => {
-		return filteredCrimeList.length
+		return !dataLoading
 			? filteredCrimeList.slice(firstLogIndex, lastLogIndex)
 			: [];
 	}, [filteredCrimeList, firstLogIndex, lastLogIndex]);
