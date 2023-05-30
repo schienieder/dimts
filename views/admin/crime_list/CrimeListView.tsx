@@ -134,7 +134,7 @@ const CrimeListView = () => {
 		return !dataLoading
 			? filteredCrimeList.slice(firstLogIndex, lastLogIndex)
 			: [];
-	}, [filteredCrimeList, firstLogIndex, lastLogIndex]);
+	}, [dataLoading, filteredCrimeList, firstLogIndex, lastLogIndex]);
 
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
