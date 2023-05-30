@@ -45,6 +45,12 @@ const CrimeListView = () => {
 	const [searchInput, setSearchInput] = useState("");
 	const [filteredCrimeList, setFilteredCrimeList] = useState([]);
 
+	useEffect(() => {
+		dispatch(getCrimeList()).then((res: any) => {
+			setFilteredCrimeList(res.payload.crimeList);
+		});
+	}, []);
+
 	const onSubmitNewCrime = useCallback(() => {
 		dispatch(getCrimeList()).then((res: any) => {
 			setFilteredCrimeList(res.payload);
@@ -119,22 +125,15 @@ const CrimeListView = () => {
 		}
 	};
 
-	useEffect(() => {
-		dispatch(getCrimeList()).then((res: any) => {
-			setFilteredCrimeList(res.payload.crimeList);
-		});
-	}, []);
-
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const lastLogIndex = currentPage * 10;
 	const firstLogIndex = lastLogIndex - 10;
 
 	const currentCrimeList = useMemo(() => {
-		return !dataLoading
-			? filteredCrimeList.slice(firstLogIndex, lastLogIndex)
-			: [];
-	}, [dataLoading, filteredCrimeList, firstLogIndex, lastLogIndex]);
+		console.log("Hello world");
+		return filteredCrimeList.slice(firstLogIndex, lastLogIndex);
+	}, [filteredCrimeList, firstLogIndex, lastLogIndex]);
 
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
