@@ -130,7 +130,10 @@ const CrimeListView = () => {
 	const lastLogIndex = currentPage * 10;
 	const firstLogIndex = lastLogIndex - 10;
 
-	const currentCrimeList = filteredCrimeList.slice(firstLogIndex, lastLogIndex);
+	const currentCrimeList = useMemo(() => {
+		console.log("Hello world");
+		return crimeList.slice(firstLogIndex, lastLogIndex);
+	}, [crimeList, firstLogIndex, lastLogIndex]);
 
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
