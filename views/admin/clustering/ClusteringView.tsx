@@ -27,40 +27,73 @@ import ViewCase from "../../../components/admin/ViewCase";
 import useCrudModals from "../../../hooks/useCrudModals";
 import useModalIDs from "../../../hooks/useModalIDs";
 
+const clusteringLegends: any = [
+	{
+		value: "Level 1",
+		type: "line",
+		color: "#ea580c",
+	},
+	{
+		value: "Level 2",
+		type: "line",
+		color: "#facc15",
+	},
+	{
+		value: "Level 3",
+		type: "line",
+		color: "#14b8a6",
+	},
+	{
+		value: "Level 4",
+		type: "line",
+		color: "#2563eb",
+	},
+	{
+		value: "Level 5",
+		type: "line",
+		color: "#db2777",
+	},
+	{
+		value: "Life Imprisonment",
+		type: "line",
+		color: "#86198f",
+	},
+];
+
+const getScatterFill = (level: number) => {
+	if (level === 1) {
+		return "#ea580c";
+	} else if (level === 2) {
+		return "#facc15";
+	} else if (level === 3) {
+		return "#14b8a6";
+	} else if (level === 4) {
+		return "#2563eb";
+	} else if (level === 5) {
+		return "#db2777";
+	} else if (level === 6) {
+		return "#86198f";
+	}
+};
+
 const ClusteringView = () => {
 	const dispatch = useAppDispatch();
 	const {
 		dataLoading,
-		clusterList,
+		// clusterList,
 		// clusterYears,
 		crimeTypesSummaryList,
-		clusterCases,
-		clusterCrimes,
+		// clusterCases,
+		// clusterCrimes,
 		newCluster,
 	} = useAppSelector((state) => state.dataState);
 
+	console.log("New cluster: ", newCluster);
+
 	// const [showCommonModal, setShowCommonModal] = useState(false);
 
-	const {
-		viewModal,
-		setViewModal,
-		showAddModal,
-		setShowAddModal,
-		showEditModal,
-		setShowEditModal,
-		showSuccessModal,
-		setShowSuccessModal,
-		showDeleteModal,
-		setShowDeleteModal,
-	} = useCrudModals();
-	const {
-		selectedID,
-		setSelectedID,
-		selectedObject,
-		setSelectedObject,
-		successText,
-		setSuccessText,
-	} = useModalIDs();
+	const { viewModal, setViewModal } = useCrudModals();
+	const { selectedObject, setSelectedObject } = useModalIDs();
 
 	const baseColor = "#4c1d95";
 	const numberOfColors = crimeTypesSummaryList.length;
@@ -96,25 +129,17 @@ const ClusteringView = () => {
 	// 		});
 	// 	}
 	// };
+
 	const onClickCluster = (payload: any) => {
 		setSelectedObject(payload);
 		setViewModal(true);
 	};
 
-	const onClickAccordion = (crime: string, isClosed: any) => {
-		if (!isClosed) {
-			dispatch(getClusterCrimes(crime));
-		}
-	};
-
-	const levelLabels: any = {
-		1: "Level 1",
-		2: "Level 2",
-		3: "Level 3",
-		4: "Level 4",
-		5: "Level 5",
-		6: "Life Imprisonment",
-	};
+	// const onClickAccordion = (crime: string, isClosed: any) => {
+	// 	if (!isClosed) {
+	// 		dispatch(getClusterCrimes(crime));
+	// 	}
+	// };
 
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
@@ -154,7 +179,8 @@ const ClusteringView = () => {
 								strokeWidth={0.5}
 								axisLine={true}
 								tickLine={false}
-								allowDuplicatedCategory={false}
+								tick={false}
+								// allowDuplicatedCategory={false}
 								// hide
 							/>
 							<YAxis
@@ -164,15 +190,7 @@ const ClusteringView = () => {
 								tickLine={false}
 								domain={["dataMin", "dataMax"]}
 							/>
-							{/* <Legend
-								payload={clusterList.map((cluster: any) => {
-									return {
-										value: cluster.name,
-										type: "line",
-										color: "#8b5cf6",
-									};
-								})}
-							/> */}
+							<Legend payload={clusteringLegends} />
 							<Tooltip
 								cursor={{ strokeDasharray: "3 3" }}
 								content={<CustomToolTip />}
@@ -183,7 +201,14 @@ const ClusteringView = () => {
 								fill="#8884d8"
 								// onClick={(data: any) => onClickCluster(data.payload.y)}
 								onClick={(data: any) => onClickCluster(data.payload)}
-							/>
+							>
+								{newCluster.map((cluster: any) => (
+									<Cell
+										key={cluster.case_no}
+										fill={getScatterFill(cluster.x)}
+									/>
+								))}
+							</Scatter>
 						</ScatterChart>
 					</ResponsiveContainer>
 				)}
