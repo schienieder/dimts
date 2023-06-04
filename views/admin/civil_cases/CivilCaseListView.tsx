@@ -10,7 +10,7 @@ import PrintButton from "../../../components/PrintButton";
 import MoonLoader from "react-spinners/MoonLoader";
 import CivilCaseTable from "./CivilCaseTable";
 import AdminBreadCrumbs from "../../../components/admin/AdminBreadCrumbs";
-import ViewCase from "../../../components/admin/ViewCase";
+// import ViewCase from "../../../components/admin/ViewCase";
 import UpdateCase from "../../../components/admin/UpdateCase";
 import SuccessModal from "../../../components/SuccessModal";
 import WarningModal from "../../../components/WarningModal";
@@ -174,13 +174,13 @@ const CivilCaseListView = () => {
 
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
-			<ViewCase
+			{/* <ViewCase
 				isShow={viewModal}
 				viewTitle="Civil Case"
 				viewText="View civil record details"
 				onClose={() => setViewModal(false)}
 				selectedCase={selectedObject}
-			/>
+			/> */}
 			<AddCivilCase
 				isShow={showAddModal}
 				addTitle="Civil Case"

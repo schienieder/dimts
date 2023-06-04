@@ -1,6 +1,45 @@
 import { backendConn, placesConn, emailConn } from "./connection";
 import _ from 'lodash'
 
+function imprisonmentLevel (value: number) {
+    if (value > 30) {
+        return {
+            level : 6,
+            name : 'Life Imprisonment'
+        }
+    }
+    else if (value > 20 && value <= 30) {
+        return {
+            level : 5,
+            name : 'Level 5'
+        }
+    }
+    else if (value > 12 && value <= 20) {
+        return {
+            level : 4,
+            name : 'Level 4'
+        }
+    }
+    else if (value > 6 && value <= 12) {
+        return {
+            level : 3,
+            name : 'Level 3'
+        }
+    }
+    else if (value > 1 && value <= 6) {
+        return {
+            level : 2,
+            name : 'Level 2'
+        }
+    }
+    else {
+        return {
+            level : 1,
+            name : 'Level 1'
+        }
+    }
+}
+
 export default class DataRepository {
     // GET REQUESTS
     // Get Staff Accounts
@@ -190,44 +229,6 @@ export default class DataRepository {
                 'Content-Type' : 'aplication/json'
             }
         })
-        const imprisonmentLevel = (value: number) => {
-            if (value > 30) {
-                return {
-                    level : 6,
-                    name : 'Life Imprisonment'
-                }
-            }
-            else if (value > 20 && value <= 30) {
-                return {
-                    level : 5,
-                    name : 'Level 5'
-                }
-            }
-            else if (value > 12 && value <= 20) {
-                return {
-                    level : 4,
-                    name : 'Level 4'
-                }
-            }
-            else if (value > 6 && value <= 12) {
-                return {
-                    level : 3,
-                    name : 'Level 3'
-                }
-            }
-            else if (value > 1 && value <= 6) {
-                return {
-                    level : 2,
-                    name : 'Level 2'
-                }
-            }
-            else {
-                return {
-                    level : 1,
-                    name : 'Level 1'
-                }
-            }
-        }
         const clusters = data.clusters.map((cluster: any) => {
             return cluster.imprisonment_span
         }).flat()
@@ -361,6 +362,24 @@ export default class DataRepository {
             }
         })
         return data.results
+    }
+    async NewClusterList(jwt_token: string) {
+        const { data } = await backendConn.get('active_cases/', {
+            headers : {
+                Authorization : `Bearer ${jwt_token}`
+            }
+        })
+        const clusterData = data.results.map((cluster: any) => {
+            const { level, name } = imprisonmentLevel(cluster.imprisonment_span)
+            return {
+                ...cluster, 
+                crime_type : cluster.crime_type.replace(/['"]+/g, ""),
+                x : level,
+                y : cluster.imprisonment_span,
+                name : name
+            }
+        })
+        return clusterData
     }
     // POST REQUESTS
     // New Case Citizens 

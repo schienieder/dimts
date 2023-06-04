@@ -26,6 +26,7 @@ interface DataShape {
     officeDocuments: any;
     recentDocuments: any;
     clusterList: any;
+    newCluster: any;
     clusterYears: any;
     clusterCases: any;
     clusterCrimes: any;
@@ -67,6 +68,7 @@ const initialState: DataShape = {
     officeDocuments: [],
     recentDocuments : [],
     clusterList : [],
+    newCluster : [],
     clusterYears : [],
     clusterCases : [],
     clusterCrimes : [],
@@ -470,6 +472,14 @@ export const newCaseCitizens = createAsyncThunk(
     }
 )
 
+export const newClusterList = createAsyncThunk(
+    'data/newClusterList',
+    async () => {
+        const dataRepo = new DataRepository()
+        return await dataRepo.NewClusterList(localStorage.jwt_token)
+    }
+)
+
 export const criminalCaseCitizens = createAsyncThunk(
     'data/criminalCaseCitizens',
     async (case_id: number) => {
@@ -818,7 +828,7 @@ const dataSlice = createSlice({
         builder.addCase(getRecentDocuments.rejected, (state) => {
             return { ...state, dataLoading : false }
         })
-        // Get Kmeans Clustering
+        // Get DBScan Clustering
         builder.addCase(getClustering.pending, (state) => {
             return { ...state, dataLoading : true }
         })
@@ -832,6 +842,16 @@ const dataSlice = createSlice({
             }
         })
         builder.addCase(getClustering.rejected, (state) => {
+            return { ...state, dataLoading : false }
+        })
+        // New Clustering List
+        builder.addCase(newClusterList.pending, (state) => {
+            return { ...state, dataLoading : true }
+        })
+        builder.addCase(newClusterList.fulfilled, (state, action) => {
+            return { ...state, dataLoading : false, newCluster : action.payload }
+        })
+        builder.addCase(newClusterList.rejected, (state) => {
             return { ...state, dataLoading : false }
         })
         // Get Cluster Cases

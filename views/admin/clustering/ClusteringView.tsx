@@ -19,11 +19,13 @@ import {
 	fetchCrimeTypesSummary,
 	getClusterCases,
 	getClusterCrimes,
+	newClusterList,
 } from "../../../redux/dataSlice";
 import { MoonLoader } from "react-spinners";
 import chroma from "chroma-js";
-import CommonModal from "../../../components/CommonModal";
-import { Disclosure } from "@headlessui/react";
+import ViewCase from "../../../components/admin/ViewCase";
+import useCrudModals from "../../../hooks/useCrudModals";
+import useModalIDs from "../../../hooks/useModalIDs";
 
 const ClusteringView = () => {
 	const dispatch = useAppDispatch();
@@ -34,9 +36,31 @@ const ClusteringView = () => {
 		crimeTypesSummaryList,
 		clusterCases,
 		clusterCrimes,
+		newCluster,
 	} = useAppSelector((state) => state.dataState);
 
-	const [showCommonModal, setShowCommonModal] = useState(false);
+	// const [showCommonModal, setShowCommonModal] = useState(false);
+
+	const {
+		viewModal,
+		setViewModal,
+		showAddModal,
+		setShowAddModal,
+		showEditModal,
+		setShowEditModal,
+		showSuccessModal,
+		setShowSuccessModal,
+		showDeleteModal,
+		setShowDeleteModal,
+	} = useCrudModals();
+	const {
+		selectedID,
+		setSelectedID,
+		selectedObject,
+		setSelectedObject,
+		successText,
+		setSuccessText,
+	} = useModalIDs();
 
 	const baseColor = "#4c1d95";
 	const numberOfColors = crimeTypesSummaryList.length;
@@ -59,17 +83,22 @@ const ClusteringView = () => {
 	useEffect(() => {
 		dispatch(getClustering());
 		dispatch(fetchCrimeTypesSummary());
+		dispatch(newClusterList());
 		// .then((res: any) =>
 		// 	console.log("Crime types: ", res.payload)
 		// );
 	}, []);
 
-	const onClickCluster = (years: number) => {
-		if (years !== 0) {
-			dispatch(getClusterCases(years)).then(() => {
-				setShowCommonModal(true);
-			});
-		}
+	// const onClickCluster = (years: number) => {
+	// 	if (years !== 0) {
+	// 		dispatch(getClusterCases(years)).then(() => {
+	// 			setShowCommonModal(true);
+	// 		});
+	// 	}
+	// };
+	const onClickCluster = (payload: any) => {
+		setSelectedObject(payload);
+		setViewModal(true);
 	};
 
 	const onClickAccordion = (crime: string, isClosed: any) => {
@@ -89,83 +118,13 @@ const ClusteringView = () => {
 
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
-			{showCommonModal && (
-				<CommonModal
-					isShow={showCommonModal}
-					commonText=""
-					commonTitle="Cluster Cases"
-					submitButtonText=""
-					onSubmitModal={() => console.log("Oten")}
-					onCloseModal={() => setShowCommonModal(false)}
-				>
-					<div className="w-96 flex flex-col gap-y-5 text-gray-700 font-mont py-5 border-t border-gray-200">
-						{clusterCases.map((cluster: any, index: number) => {
-							return (
-								<Disclosure key={cluster.id}>
-									{({ open }) => (
-										<Fragment>
-											<Disclosure.Button
-												className="p-2 bg-purple-100 text-purple-700 my-2 rounded-md"
-												onClick={() =>
-													onClickAccordion(cluster.crime_type, open)
-												}
-											>
-												<div className="w-full flex justify-between items-center">
-													<div className="flex flex-col items-start">
-														<p className="text-sm font-bold">
-															{cluster.crime_type.replaceAll(/["\[\]]+/g, "")}
-															{" - "}
-															<span>{cluster.imprisonment_span} years</span>
-														</p>
-														<p className="text-xs font-medium">
-															Crime Type & Imprisonment
-														</p>
-													</div>
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														viewBox="0 0 20 20"
-														fill="currentColor"
-														className={`${
-															open ? "rotate-180 transform" : ""
-														} h-5 w-5`}
-													>
-														<path
-															fillRule="evenodd"
-															d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-															clipRule="evenodd"
-														/>
-													</svg>
-												</div>
-											</Disclosure.Button>
-											<Disclosure.Panel className="text-sm p-3 text-gray-700 font-medium flex flex-col gap-y-5">
-												{clusterCrimes.map((cluster_crimes: any) => {
-													return (
-														<div
-															key={cluster_crimes.no}
-															className="w-full col-span-2 flex flex-col gap-y-1"
-														>
-															<div className="flex gap-x-1">
-																<h4 className="font-bold">Case No</h4>
-																<p>-</p>
-																<p className="">{cluster_crimes.case_no}</p>
-															</div>
-															<img
-																src={cluster_crimes.qr_code}
-																className="w-full h-auto"
-																alt="QRcode"
-															/>
-														</div>
-													);
-												})}
-											</Disclosure.Panel>
-										</Fragment>
-									)}
-								</Disclosure>
-							);
-						})}
-					</div>
-				</CommonModal>
-			)}
+			<ViewCase
+				isShow={viewModal}
+				onClose={() => setViewModal(false)}
+				selectedCase={selectedObject}
+				viewTitle="Cluster Data"
+				viewText="View cluster case data"
+			/>
 			<AdminBreadCrumbs activeText="DBSCAN Clustering" />
 			<div className="w-full bg-white font-mont flex flex-col gap-y-5 text-gray-700 p-5 shadow border-b border-gray-200 rounded-lg">
 				<h4 className="text-xl font-black tracking-wider">DBSCAN Clustering</h4>
@@ -220,9 +179,10 @@ const ClusteringView = () => {
 							/>
 							<Scatter
 								// name="Custom Name"
-								data={clusterList}
+								data={newCluster}
 								fill="#8884d8"
-								onClick={(data: any) => onClickCluster(data.payload.y)}
+								// onClick={(data: any) => onClickCluster(data.payload.y)}
+								onClick={(data: any) => onClickCluster(data.payload)}
 							/>
 						</ScatterChart>
 					</ResponsiveContainer>
@@ -298,13 +258,26 @@ const ClusteringView = () => {
 	);
 };
 
+function getPayloadText(payload: any) {
+	const { case_no, crime_type, imprisonment_span } = payload;
+	const crimeType = crime_type.includes("[")
+		? crime_type.slice(1, -1).replace(/['"]+/g, "")
+		: crime_type;
+	return `${case_no} - ${crimeType} - ${imprisonment_span}`;
+}
+
 function CustomToolTip({ active, payload, label }: any) {
 	if (active && payload) {
 		return (
-			<div className="bg-white p-2 flex flex-col shadow border-b border-gray-300 text-gray-700">
-				<p className="capitalize">
+			<div className="bg-white p-2 flex flex-row gap-x-1 shadow border-b border-gray-300 text-gray-700 font-bold font-mont">
+				{/* <p className="capitalize">
 					<span className="font-medium">Value: </span>
 					{payload[0]?.payload.y ?? ""}
+				</p> */}
+				<p>
+					{payload[0]?.payload !== undefined
+						? getPayloadText(payload[0]?.payload)
+						: ""}
 				</p>
 			</div>
 		);

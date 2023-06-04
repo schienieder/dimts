@@ -72,6 +72,17 @@ const ViewCase = ({
 					<p className="text-sm text-gray-500">{selectedCase.judge_assigned}</p>
 				</div>
 				{/*  */}
+				{Object.keys(selectedCase).length && isShow
+					? selectedCase.type_of_case.toLowerCase() === "criminal" && (
+							<div className="w-full col-span-2 flex flex-col gap-y-1">
+								<h4 className="font-bold">Imrpisonment</h4>
+								<p className="text-sm text-gray-500">
+									{selectedCase.imprisonment_span} Years
+								</p>
+							</div>
+					  )
+					: null}
+				{/*  */}
 				<div className="w-full col-span-2 flex flex-col gap-y-1">
 					<h4 className="font-bold">QRCode</h4>
 					<p className="text-xs">{selectedCase.qr_code_tracker}</p>
