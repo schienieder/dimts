@@ -165,9 +165,31 @@ const ClusteringView = () => {
 			/>
 			<AdminBreadCrumbs activeText="Descriptive Clustering" />
 			<div className="w-full bg-white font-mont flex flex-col gap-y-5 text-gray-700 p-5 shadow border-b border-gray-200 rounded-lg">
-				<h4 className="text-xl font-black tracking-wider">
-					Descriptive Clustering
-				</h4>
+				<div className="w-full flex justify-between">
+					<h4 className="text-xl font-black tracking-wider">
+						Descriptive Clustering
+					</h4>
+					{/*  */}
+					<div className="flex flex-row gap-x-5">
+						<StatusIndicator
+							statusType="Active Cases"
+							totalCount={30}
+						/>
+						<StatusIndicator
+							statusType="Closed Cases"
+							totalCount={4}
+						/>
+					</div>
+					{/*  */}
+					<select
+						className="w-44 py-1 px-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent appearance-none"
+						onChange={(e: any) => dispatch(newClusterList(e.target.value))}
+					>
+						<option value="all">All Cases</option>
+						<option value="open">Active Cases</option>
+						<option value="closed">Closed Cases</option>
+					</select>
+				</div>
 				<div className="w-full border-b border-gray-200 -mt-3"></div>
 				{dataLoading && (
 					<div className="w-full flex justify-center items-center">
@@ -294,6 +316,27 @@ const ClusteringView = () => {
 					</ResponsiveContainer>
 				)}
 			</div>
+		</div>
+	);
+};
+
+type StatusIndicatorParams = {
+	statusType: string;
+	totalCount: number;
+};
+
+const StatusIndicator = ({ statusType, totalCount }: StatusIndicatorParams) => {
+	return (
+		<div className="flex gap-x-1 items-center">
+			<div
+				className={`h-4 w-4 ${
+					statusType.toLocaleLowerCase() === "active cases"
+						? "bg-purple-600"
+						: "bg-purple-300"
+				}`}
+			></div>
+			<p className="text-xs font-medium">{statusType}</p>
+			<p className="text-sm font-bold">{totalCount}</p>
 		</div>
 	);
 };

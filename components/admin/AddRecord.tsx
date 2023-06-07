@@ -63,7 +63,10 @@ const AddRecord = ({
 					<MyMultiSelectField
 						myControl={control}
 						myOptions={selectOptions.map((option: any) => {
-							return { label: option.case_no, value: option.id };
+							return {
+								label: `${option.case_no} - ${option.case_title}`,
+								value: option.id,
+							};
 						})}
 						fieldName="recordCase"
 						fieldLabel="Case"

@@ -214,6 +214,17 @@ const CourtHearingsView = () => {
 		setFilteredHearings(filteredValues);
 	};
 
+	const statusSelection = (status: string) => {
+		if (status.toLowerCase() === "all") {
+			setFilteredHearings(courtHearingList);
+			return;
+		}
+		const filteredDetainees = courtHearingList.filter(
+			(hearing: any) => hearing.status.toLowerCase() === status
+		);
+		setFilteredHearings(filteredDetainees);
+	};
+
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
 			<ViewHearing
@@ -318,7 +329,7 @@ const CourtHearingsView = () => {
 							onShowEdit={(hearing_id: number) => onShowUpdateModal(hearing_id)}
 						/>
 
-						<div className="self-end flex justify-between items-center">
+						<div className="self-end flex gap-x-5 items-center">
 							{/* <div className="self-end flex gap-x-2 items-center">
 								<p className="text-sm font-medium">Sort by: </p>
 								<select
@@ -354,6 +365,17 @@ const CourtHearingsView = () => {
 								>
 									Clear Filter
 								</button>
+							)}
+							{courtHearingList.length > 0 && (
+								<select
+									className="w-44 py-1 px-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent appearance-none"
+									onChange={(e: any) => statusSelection(e.target.value)}
+								>
+									<option value="all">Show All</option>
+									<option value="completed">Completed</option>
+									<option value="pending">Pending</option>
+									<option value="canceled">Cancelled</option>
+								</select>
 							)}
 						</div>
 					</div>

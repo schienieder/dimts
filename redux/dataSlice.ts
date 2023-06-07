@@ -474,9 +474,9 @@ export const newCaseCitizens = createAsyncThunk(
 
 export const newClusterList = createAsyncThunk(
     'data/newClusterList',
-    async () => {
+    async (caseStatus: string = 'all') => {
         const dataRepo = new DataRepository()
-        return await dataRepo.NewClusterList(localStorage.jwt_token)
+        return await dataRepo.NewClusterList(localStorage.jwt_token, caseStatus)
     }
 )
 
