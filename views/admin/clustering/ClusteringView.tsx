@@ -163,9 +163,11 @@ const ClusteringView = () => {
 				viewText="View cluster case data"
 				selectedCrime={filteredCrimeList}
 			/>
-			<AdminBreadCrumbs activeText="DBSCAN Clustering" />
+			<AdminBreadCrumbs activeText="Descriptive Clustering" />
 			<div className="w-full bg-white font-mont flex flex-col gap-y-5 text-gray-700 p-5 shadow border-b border-gray-200 rounded-lg">
-				<h4 className="text-xl font-black tracking-wider">DBSCAN Clustering</h4>
+				<h4 className="text-xl font-black tracking-wider">
+					Descriptive Clustering
+				</h4>
 				<div className="w-full border-b border-gray-200 -mt-3"></div>
 				{dataLoading && (
 					<div className="w-full flex justify-center items-center">
