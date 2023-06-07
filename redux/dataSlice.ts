@@ -44,6 +44,8 @@ interface DataShape {
     crimeList: any;
     criminalCrimeList: any;
     civilCrimeList: any;
+    activeCount: number;
+    closedCount: number;
 }
 
 const initialState: DataShape = {
@@ -86,6 +88,8 @@ const initialState: DataShape = {
     crimeList : [],
     criminalCrimeList : [],
     civilCrimeList : [],
+    activeCount: 0,
+    closedCount: 0,
 }
 
 // ACCOUNT THUNKS
@@ -476,7 +480,22 @@ export const newClusterList = createAsyncThunk(
     'data/newClusterList',
     async (caseStatus: string = 'all') => {
         const dataRepo = new DataRepository()
-        return await dataRepo.NewClusterList(localStorage.jwt_token, caseStatus)
+        const res = await dataRepo.NewClusterList(localStorage.jwt_token, caseStatus)
+        let activeCasesCount = 0 
+        let closedCasesCount = 0
+        
+        res.map((case_: any) => {
+            if (case_.is_closed === false) {
+                activeCasesCount++;
+            }
+            else if(case_.is_closed === true) {
+                closedCasesCount++;
+            }
+        })
+        
+        console.log("Active: ", activeCasesCount)
+        console.log("Closed: ", closedCasesCount)
+        return { newCluster: res, active : activeCasesCount, closed : closedCasesCount }
     }
 )
 
@@ -849,7 +868,8 @@ const dataSlice = createSlice({
             return { ...state, dataLoading : true }
         })
         builder.addCase(newClusterList.fulfilled, (state, action) => {
-            return { ...state, dataLoading : false, newCluster : action.payload }
+            const { newCluster, active, closed } = action.payload
+            return { ...state, dataLoading : false, newCluster : newCluster, activeCount : Number(active), closedCount : Number(closed) }
         })
         builder.addCase(newClusterList.rejected, (state) => {
             return { ...state, dataLoading : false }

@@ -88,6 +88,8 @@ const ClusteringView = () => {
 		// clusterCrimes,
 		newCluster,
 		crimeList,
+		activeCount,
+		closedCount,
 	} = useAppSelector((state) => state.dataState);
 
 	console.log("New cluster: ", newCluster);
@@ -173,11 +175,11 @@ const ClusteringView = () => {
 					<div className="flex flex-row gap-x-5">
 						<StatusIndicator
 							statusType="Active Cases"
-							totalCount={30}
+							totalCount={activeCount}
 						/>
 						<StatusIndicator
 							statusType="Closed Cases"
-							totalCount={4}
+							totalCount={closedCount}
 						/>
 					</div>
 					{/*  */}
