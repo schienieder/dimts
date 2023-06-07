@@ -109,9 +109,11 @@ const ViewCluster = ({
 					{selectedCrime?.penalty_items !== undefined
 						? JSON.parse(selectedCrime.penalty_items).map(
 								(penaltyItem: any, index: number) => {
-									const parsedCrimes = JSON.parse(
-										selectedCase.crime_type_list.replaceAll("'", '"')
-									);
+									const parsedCrimes = selectedCase.crime_type_list.length
+										? JSON.parse(
+												selectedCase.crime_type_list.replaceAll("'", '"')
+										  )
+										: [];
 									return (
 										<div
 											key={`${selectedCrime.crime_type}-${index}`}
@@ -125,7 +127,11 @@ const ViewCluster = ({
 														className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
 														// checked={selectedCrime.penalty_items}
 														// disabled
-														checked={parsedCrimes[index] === 1}
+														checked={
+															parsedCrimes.length
+																? parsedCrimes[index] === 1
+																: false
+														}
 														readOnly
 													/>
 													<label className="w-full py-4 ml-2 text-sm font-normal text-gray-700">
