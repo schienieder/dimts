@@ -23,6 +23,7 @@ const AddCaseView = () => {
 	const [qrTracker, setQrTracker] = useState<any>();
 	const [showLoading, setShowLoading] = useState(false);
 	const [totalImprisonment, setTotalImprisonment] = useState<number>(0);
+	const [crimeListIndex, setCrimeListIndex] = useState<any>({});
 
 	const router = useRouter();
 	const { type } = router.query;
@@ -78,6 +79,7 @@ const AddCaseView = () => {
 	});
 
 	const onSubmit = (formData: any) => {
+		console.log("Crime list index: ", crimeListIndex);
 		let qrImage: any = document.getElementById("qr-gen");
 		let qrBase64 = qrImage.toDataURL("image/jpeg");
 		setShowLoading(true);
@@ -96,6 +98,7 @@ const AddCaseView = () => {
 			qr_code: qrBase64,
 			qr_code_tracker: qrTracker,
 			imprisonment_span: totalImprisonment,
+			crime_type_list: JSON.stringify(crimeListIndex),
 		};
 		setTimeout(() => {
 			dispatch(createNewDocket(data)).then(() => {
@@ -141,10 +144,51 @@ const AddCaseView = () => {
 		caseJudge,
 	]);
 
-	const handleCheckChange = (e: any) => {
+	const crimeTypeListChange = (
+		crimeType: any,
+		crimeIndex: number,
+		action: string
+	) => {
+		if (crimeListIndex.hasOwnProperty(crimeType.crime_type)) {
+			console.log("Key exists");
+			const stateCrimeObj = crimeListIndex[crimeType.crime_type];
+			const checkListArr = JSON.parse(crimeType.penalty_items).map(
+				(_: any, index: number) => {
+					if (index === Number(crimeIndex)) {
+						return action === "add" ? 1 : 0;
+					}
+					console.log("Hey: ", stateCrimeObj[index]);
+					return stateCrimeObj[index];
+				}
+			);
+			setCrimeListIndex((prevCrimeList: any) => ({
+				...prevCrimeList,
+				[crimeType.crime_type]: checkListArr,
+			}));
+		} else {
+			const checkListArr = JSON.parse(crimeType.penalty_items).map(
+				(_: any, index: number) => {
+					if (index === Number(crimeIndex)) {
+						return action === "add" ? 1 : 0;
+					} else {
+						return 0;
+					}
+				}
+			);
+			setCrimeListIndex((prevCrimeList: any) => ({
+				...prevCrimeList,
+				[crimeType.crime_type]: checkListArr,
+			}));
+		}
+		console.log("Hawtdawg: ", crimeListIndex);
+	};
+
+	const handleCheckChange = (e: any, crimeType: any, crimeIndex: number) => {
 		if (e.target.checked) {
+			crimeTypeListChange(crimeType, crimeIndex, "add");
 			setTotalImprisonment((prevTotal) => prevTotal + Number(e.target.value));
 		} else {
+			crimeTypeListChange(crimeType, crimeIndex, "subtract");
 			setTotalImprisonment((prevTotal) => prevTotal - Number(e.target.value));
 		}
 	};
@@ -312,7 +356,13 @@ const AddCaseView = () => {
 																		name="bordered-checkbox"
 																		className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
 																		value={crime_penalty_sentences[index]}
-																		onClick={(e: any) => handleCheckChange(e)}
+																		onClick={(e: any) =>
+																			handleCheckChange(
+																				e,
+																				crimeTypeValue,
+																				index
+																			)
+																		}
 																	/>
 																	<label className="w-full py-4 ml-2 text-sm font-normal text-gray-700">
 																		{crimeQuestion}

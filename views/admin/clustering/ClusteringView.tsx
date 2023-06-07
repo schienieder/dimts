@@ -20,10 +20,11 @@ import {
 	getClusterCases,
 	getClusterCrimes,
 	newClusterList,
+	getCrimeList,
 } from "../../../redux/dataSlice";
 import { MoonLoader } from "react-spinners";
 import chroma from "chroma-js";
-import ViewCase from "../../../components/admin/ViewCase";
+import ViewCluster from "../../../components/admin/ViewCluster";
 import useCrudModals from "../../../hooks/useCrudModals";
 import useModalIDs from "../../../hooks/useModalIDs";
 
@@ -86,6 +87,7 @@ const ClusteringView = () => {
 		// clusterCases,
 		// clusterCrimes,
 		newCluster,
+		crimeList,
 	} = useAppSelector((state) => state.dataState);
 
 	console.log("New cluster: ", newCluster);
@@ -94,6 +96,7 @@ const ClusteringView = () => {
 
 	const { viewModal, setViewModal } = useCrudModals();
 	const { selectedObject, setSelectedObject } = useModalIDs();
+	const [filteredCrimeList, setFilteredCrimeList] = useState({});
 
 	const baseColor = "#4c1d95";
 	const numberOfColors = crimeTypesSummaryList.length;
@@ -117,6 +120,7 @@ const ClusteringView = () => {
 		dispatch(getClustering());
 		dispatch(fetchCrimeTypesSummary());
 		dispatch(newClusterList());
+		dispatch(getCrimeList());
 		// .then((res: any) =>
 		// 	console.log("Crime types: ", res.payload)
 		// );
@@ -131,6 +135,14 @@ const ClusteringView = () => {
 	// };
 
 	const onClickCluster = (payload: any) => {
+		const selectedCrime = payload?.crime_type.includes("[")
+			? payload.crime_type.slice(1, -1).replace(/['"]+/g, "")
+			: payload.crime_type;
+		const filteredValue = crimeList.find(
+			(crime: any) => crime.crime_type === selectedCrime
+		);
+		console.log("Filtered crime: ", filteredValue);
+		setFilteredCrimeList(filteredValue);
 		setSelectedObject(payload);
 		setViewModal(true);
 	};
@@ -143,12 +155,13 @@ const ClusteringView = () => {
 
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
-			<ViewCase
+			<ViewCluster
 				isShow={viewModal}
 				onClose={() => setViewModal(false)}
 				selectedCase={selectedObject}
 				viewTitle="Cluster Data"
 				viewText="View cluster case data"
+				selectedCrime={filteredCrimeList}
 			/>
 			<AdminBreadCrumbs activeText="DBSCAN Clustering" />
 			<div className="w-full bg-white font-mont flex flex-col gap-y-5 text-gray-700 p-5 shadow border-b border-gray-200 rounded-lg">
