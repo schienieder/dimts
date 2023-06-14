@@ -374,8 +374,8 @@ export default class DataRepository {
             return {
                 ...cluster, 
                 crime_type : cluster.crime_type.replace(/['"]+/g, ""),
-                x : level,
-                y : cluster.imprisonment_span,
+                y : level,
+                x : cluster.imprisonment_span,
                 name : name
             }
         })
