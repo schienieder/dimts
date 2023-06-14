@@ -121,7 +121,7 @@ const ClusteringView = () => {
 	useEffect(() => {
 		dispatch(getClustering());
 		dispatch(fetchCrimeTypesSummary());
-		dispatch(newClusterList());
+		dispatch(newClusterList("all"));
 		dispatch(getCrimeList());
 		// .then((res: any) =>
 		// 	console.log("Crime types: ", res.payload)
@@ -214,11 +214,10 @@ const ClusteringView = () => {
 								vertical={false}
 							/>
 							<XAxis
-								dataKey="name"
+								dataKey="x"
 								strokeWidth={0.5}
 								axisLine={true}
 								tickLine={false}
-								tick={false}
 								// allowDuplicatedCategory={false}
 								// hide
 							/>
@@ -227,7 +226,7 @@ const ClusteringView = () => {
 								strokeWidth={0.5}
 								axisLine={true}
 								tickLine={false}
-								domain={["dataMin", "dataMax"]}
+								domain={[1, 2, 3, 4, 5, 10]}
 							/>
 							<Legend payload={clusteringLegends} />
 							<Tooltip
@@ -244,7 +243,7 @@ const ClusteringView = () => {
 								{newCluster.map((cluster: any) => (
 									<Cell
 										key={cluster.case_no}
-										fill={getScatterFill(cluster.x)}
+										fill={getScatterFill(cluster.y)}
 									/>
 								))}
 							</Scatter>
