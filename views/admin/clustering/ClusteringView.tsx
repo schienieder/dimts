@@ -155,6 +155,25 @@ const ClusteringView = () => {
 	// 	}
 	// };
 
+	const CustomAxisTick = (props: any) => {
+		const { x, y, stroke, payload } = props;
+		console.log("Custom tick value: ", payload.value);
+		return (
+			<g transform={`translate(${x},${y})`}>
+				<text
+					x={0}
+					y={0}
+					dy={16}
+					textAnchor="end"
+					fill="#666"
+					// transform="rotate(-35)"
+				>
+					{payload.value !== 6 ? `Lvl ${payload.value}` : "LF"}
+				</text>
+			</g>
+		);
+	};
+
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
 			<ViewCluster
@@ -226,7 +245,9 @@ const ClusteringView = () => {
 								strokeWidth={0.5}
 								axisLine={true}
 								tickLine={false}
-								domain={[1, 2, 3, 4, 5, 10]}
+								tickCount={6}
+								tick={<CustomAxisTick />}
+								domain={["dataMin", "dataMax"]}
 							/>
 							<Legend payload={clusteringLegends} />
 							<Tooltip
