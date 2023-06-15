@@ -155,24 +155,24 @@ const ClusteringView = () => {
 	// 	}
 	// };
 
-	const CustomAxisTick = (props: any) => {
-		const { x, y, stroke, payload } = props;
-		console.log("Custom tick value: ", payload.value);
-		return (
-			<g transform={`translate(${x},${y})`}>
-				<text
-					x={0}
-					y={0}
-					dy={16}
-					textAnchor="end"
-					fill="#666"
-					// transform="rotate(-35)"
-				>
-					{payload.value !== 6 ? `Lvl ${payload.value}` : "LF"}
-				</text>
-			</g>
-		);
-	};
+	// const CustomAxisTick = (props: any) => {
+	// 	const { x, y, stroke, payload } = props;
+	// 	console.log("Custom tick value: ", payload.value);
+	// 	return (
+	// 		<g transform={`translate(${x},${y})`}>
+	// 			<text
+	// 				x={0}
+	// 				y={0}
+	// 				dy={16}
+	// 				textAnchor="end"
+	// 				fill="#666"
+	// 				// transform="rotate(-35)"
+	// 			>
+	// 				{payload.value !== 6 ? `Lvl ${payload.value}` : "LF"}
+	// 			</text>
+	// 		</g>
+	// 	);
+	// };
 
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
@@ -241,13 +241,14 @@ const ClusteringView = () => {
 								// hide
 							/>
 							<YAxis
-								dataKey="y"
+								dataKey="x"
 								strokeWidth={0.5}
 								axisLine={true}
 								tickLine={false}
-								tickCount={6}
-								tick={<CustomAxisTick />}
-								domain={["dataMin", "dataMax"]}
+								// interval={6}
+								// tickCount={6}
+								// tick={<CustomAxisTick />}
+								domain={[0, "dataMax"]}
 							/>
 							<Legend payload={clusteringLegends} />
 							<Tooltip

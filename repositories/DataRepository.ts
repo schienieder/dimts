@@ -379,7 +379,7 @@ export default class DataRepository {
                 name : name
             }
         })
-        return _.orderBy(clusterData, ['y', 'x'], ['asc'])
+        return clusterData
     }
     // POST REQUESTS
     // New Case Citizens 
