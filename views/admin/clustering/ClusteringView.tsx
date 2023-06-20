@@ -27,6 +27,7 @@ import chroma from "chroma-js";
 import ViewCluster from "../../../components/admin/ViewCluster";
 import useCrudModals from "../../../hooks/useCrudModals";
 import useModalIDs from "../../../hooks/useModalIDs";
+import _ from "lodash";
 
 const clusteringLegends: any = [
 	{
@@ -92,13 +93,12 @@ const ClusteringView = () => {
 		closedCount,
 	} = useAppSelector((state) => state.dataState);
 
-	console.log("New cluster: ", newCluster);
-
 	// const [showCommonModal, setShowCommonModal] = useState(false);
 
 	const { viewModal, setViewModal } = useCrudModals();
 	const { selectedObject, setSelectedObject } = useModalIDs();
 	const [filteredCrimeList, setFilteredCrimeList] = useState({});
+	const [filteredCluster, setFilteredCluster] = useState([]);
 
 	const baseColor = "#4c1d95";
 	const numberOfColors = crimeTypesSummaryList.length;
@@ -121,7 +121,9 @@ const ClusteringView = () => {
 	useEffect(() => {
 		dispatch(getClustering());
 		dispatch(fetchCrimeTypesSummary());
-		dispatch(newClusterList("all"));
+		dispatch(newClusterList()).then((res: any) => {
+			setFilteredCluster(res.payload?.newCluster ?? []);
+		});
 		dispatch(getCrimeList());
 		// .then((res: any) =>
 		// 	console.log("Crime types: ", res.payload)
@@ -174,6 +176,18 @@ const ClusteringView = () => {
 	// 	);
 	// };
 
+	const onChangeLevels = (level: string) => {
+		if (level === "all") {
+			setFilteredCluster(newCluster);
+		} else {
+			let filtered_cluster: any = _.filter(newCluster, function (o) {
+				return o.y === Number(level);
+			});
+			console.log("Filtered: ", filtered_cluster);
+			setFilteredCluster(filtered_cluster);
+		}
+	};
+
 	return (
 		<div className="flex flex-col gap-y-5 font-mont text-gray-700">
 			<ViewCluster
@@ -204,11 +218,15 @@ const ClusteringView = () => {
 					{/*  */}
 					<select
 						className="w-44 py-1 px-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent appearance-none"
-						onChange={(e: any) => dispatch(newClusterList(e.target.value))}
+						onChange={(e: any) => onChangeLevels(e.target.value)}
 					>
 						<option value="all">All Cases</option>
-						<option value="open">Active Cases</option>
-						<option value="closed">Closed Cases</option>
+						<option value="1">Level 1</option>
+						<option value="2">Level 2</option>
+						<option value="3">Level 3</option>
+						<option value="4">Level 4</option>
+						<option value="5">Level 5</option>
+						<option value="6">Life Imprisonment</option>
 					</select>
 				</div>
 				<div className="w-full border-b border-gray-200 -mt-3"></div>
@@ -238,7 +256,7 @@ const ClusteringView = () => {
 								axisLine={true}
 								tickLine={false}
 								// allowDuplicatedCategory={false}
-								// hide
+								hide
 							/>
 							<YAxis
 								dataKey="x"
@@ -257,15 +275,15 @@ const ClusteringView = () => {
 							/>
 							<Scatter
 								// name="Custom Name"
-								data={newCluster}
-								fill="#8884d8"
+								data={filteredCluster}
+								// fill="#8884d8"
 								// onClick={(data: any) => onClickCluster(data.payload.y)}
 								onClick={(data: any) => onClickCluster(data.payload)}
 							>
-								{newCluster.map((cluster: any) => (
+								{filteredCluster.map((cluster: any) => (
 									<Cell
 										key={cluster.case_no}
-										fill={getScatterFill(cluster.y)}
+										fill={getScatterFill(Number(cluster.y))}
 									/>
 								))}
 							</Scatter>

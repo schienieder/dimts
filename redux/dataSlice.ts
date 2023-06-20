@@ -478,9 +478,9 @@ export const newCaseCitizens = createAsyncThunk(
 
 export const newClusterList = createAsyncThunk(
     'data/newClusterList',
-    async (caseStatus: string = 'all') => {
+    async () => {
         const dataRepo = new DataRepository()
-        const res = await dataRepo.NewClusterList(localStorage.jwt_token, caseStatus)
+        const res = await dataRepo.NewClusterList(localStorage.jwt_token)
         let activeCasesCount = 0 
         let closedCasesCount = 0
         
@@ -493,8 +493,6 @@ export const newClusterList = createAsyncThunk(
             }
         })
         
-        console.log("Active: ", activeCasesCount)
-        console.log("Closed: ", closedCasesCount)
         return { newCluster: res, active : activeCasesCount, closed : closedCasesCount }
     }
 )
@@ -588,7 +586,7 @@ const dataSlice = createSlice({
         },
         updateActivityLogs : (state, action) => {
             return { ...state, activityLogs : action.payload }
-        }
+        },
     },
     extraReducers : builder => {
         // ACCOUNTS

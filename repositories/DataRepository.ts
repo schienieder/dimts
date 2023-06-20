@@ -363,8 +363,8 @@ export default class DataRepository {
         })
         return data.results
     }
-    async NewClusterList(jwt_token: string, case_status: string) {
-        const { data } = await backendConn.get(`active_cases/${case_status}`, {
+    async NewClusterList(jwt_token: string) {
+        const { data } = await backendConn.get(`active_cases/`, {
             headers : {
                 Authorization : `Bearer ${jwt_token}`
             }
